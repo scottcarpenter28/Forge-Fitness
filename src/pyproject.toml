@@ -17,8 +17,8 @@ maintainers = [
     {name = "Scott Carpenter", email = "scottcarpenter28@gmail.com"},
 ]
 description = "Forge your own path to finess"
-readme = "../README.md"
-license = {file = "../LICENSE"}
+readme = "./README.md"
+license = {file = "./LICENSE"}
 keywords = ["Fitness", "Django"]
 classifiers = [
     "Development Status :: 4 - Beta",

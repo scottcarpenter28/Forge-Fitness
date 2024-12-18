@@ -22,13 +22,14 @@ services:
     image: postgres:14
     environment:
       POSTGRES_PASSWORD: $PG_ADMIN_PASSWORD
+      POSTGRES_USER: $PG_ADMIN
     networks:
       development:
     ports:
       - "5432:5432"
     restart: always
     volumes:
-      - database_storage
+      - "database_storage:/var/lib/postgresql/data"
 
 networks:
   development:
