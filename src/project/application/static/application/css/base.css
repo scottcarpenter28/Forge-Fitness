@@ -6,7 +6,9 @@
     --text: black;
 
     --primary-option: #394867;
+    --primary-option-hover: #45587c;
     --secondary-option: #6C767D;
+    --secondary-option-hover: #8d9aa3;
     --danger-option: #EC625F;
     --danger-option-hover: #fc7d7b;
 }
@@ -53,13 +55,105 @@ html {
     margin: 0;
 }
 
+img{
+    border-radius: 3%;
+    margin: 50px;
+    width: 60%;
+}
+
+input[type=submit]{
+    background-color: var(--primary-option);
+    color: white;
+    font-size: 1.25rem;
+    width: 96% !important;
+    padding: 0 2px;
+}
+
+input[type=submit]:hover{
+    background-color: var(--primary-option-hover);
+}
+
+input[type=text],
+input[type=password],
+input[type=submit] {
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    margin: 10px 10px;
+    width: 95%;
+}
+
 /* Classes */
+.btn{
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1.00rem;
+    height: 40px;
+    width: 100%;
+    padding: 0;
+}
+
+.btn-danger{
+    background-color: var(--danger-option);
+}
+.btn-danger:hover{
+    background-color: var(--danger-option-hover);
+}
+
+.btn-secondary{
+    background-color: var(--secondary-option);
+}
+
+.btn-secondary:hover{
+    background-color: var(--secondary-option-hover);
+}
+
+.center-content{
+    display: flex;
+    justify-content: center;
+}
+
+.centered-image{
+    display: flex;
+    justify-content: center;
+}
+
+.form-container {
+    background-color: var(--secondary);
+    border-radius: 5px;
+    padding: 0 10px 25px;
+
+    width: 30%;
+
+    @media screen and (max-width: 475px){
+        width: 95% !important;
+    }
+    @media screen and (max-width: 900px){
+        width: 90%;
+    }
+    @media screen and (max-width: 1080px){
+        width: 50%;
+    }
+
+}
+
+.input-group label{
+    font-size: 1.2rem;
+    padding-left: 10px;
+}
 
 .logo-container{
     display: flex;
     justify-content: center;
     padding: 30px 0;
 }
+
+.w50{
+    margin: 0 12px;
+    width: 47%;
+}
+
 
 /* ID's */
 

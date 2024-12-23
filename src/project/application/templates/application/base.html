@@ -16,10 +16,13 @@
 
     </head>
     <body>
+        {% if user.is_authenticated %}
+            {% include 'application/menu_bar.html' %}
+        {% endif %}
 
-        {% include 'application/menu_bar.html' %}
+
         <div id="content">
-            <div>
+            <div style="margin-bottom: 25px;">
                 {% include 'application/theme_switcher.html' %}
             </div>
             {% block content %}
