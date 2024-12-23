@@ -1,0 +1,87 @@
+:root {
+    --base: #ffffff;
+    --secondary: #E0E0E0;
+    --tertiary: #C6C6C6;
+    --text: black;
+
+    --primary-option: #394867;
+    --secondary-option: #6C767D;
+    --danger-option: #EC625F;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --base: #525252;
+        --secondary: #414141;
+        --tertiary: #525252;
+        --text: white;
+    }
+}
+
+html {
+    color-scheme: dark light;
+}
+
+/* CSS-only solution using :has()
+   the JS version is commented out lower down */
+:root:has(#theme [value="light"]:checked) {
+    color-scheme: light;
+    --base: #cfcfcf;
+    --text: #212121;
+}
+
+:root:has(#theme [value="dark"]:checked) {
+    color-scheme: dark;
+    --base: #525252;
+    --text: white;
+}
+
+
+body {
+    color: var(--text);
+    background-color: var(--base);
+}
+
+body {
+    font-size: 1.5rem;
+}
+
+.with-scrollbar {
+    height: 300px;
+    border: 5px solid hsl(0 0 50% / 0.5);
+    overflow-y: scroll;
+}
+
+#theme-switcher {
+    float: right;
+
+    #current_theme{
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    select{
+        display: none;
+    }
+
+    i{
+        align-items: center;
+        border-color: var(--secondary-option);
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 5%;
+        display: flex;
+        height: 30px;
+        justify-content: center;
+        margin: 25px;
+        padding: 10px;
+        width: 30px;
+    }
+    i:hover{
+        color: gray;
+        border-color: var(--primary-option);
+    }
+
+}
+

@@ -1,0 +1,29 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Forge Fitness</title>
+    <link rel="stylesheet" href="{% static 'application/css/base.css' %}">
+    <script src="{% static 'application/js/jquery.min.js' %}"></script>
+
+    <link href="{% static 'application/font-awesome/css/all.css' %}" rel="stylesheet" />
+
+    {% block extra_head %}
+
+    {% endblock %}
+
+</head>
+<body>
+    {% include 'application/theme_switcher.html' %}
+
+    {% block body %}
+    {% endblock %}
+
+</body>
+<footer>
+    {% block footer %}
+    {% endblock %}
+</footer>
+</html>

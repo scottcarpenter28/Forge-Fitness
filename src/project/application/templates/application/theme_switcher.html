@@ -1,0 +1,17 @@
+{% load static %}
+
+<script src="{% static 'application/js/theme_switcher.js' %}"></script>
+<div id="theme-switcher">
+    <div id="current_theme">
+        <i id="light-mode" class="fa-regular fa-sun" style="display: none"></i>
+        <i id="dark-mode" class="fa-solid fa-moon" style="display: none"></i>
+        <i id="follow-system" class="fa-solid fa-computer"></i>
+    </div>
+
+<!--  Todo: Check the user's preference and select based on that  -->
+    <select data-theme-picker name="themepicker" id="theme">
+        <option value="system">System</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</div>
