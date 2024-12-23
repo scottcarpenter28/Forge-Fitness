@@ -1,29 +1,31 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Forge Fitness</title>
-    <link rel="stylesheet" href="{% static 'application/css/base.css' %}">
-    <script src="{% static 'application/js/jquery.min.js' %}"></script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Forge Fitness</title>
+        <link rel="stylesheet" href="{% static 'application/css/base.css' %}">
+        <script src="{% static 'application/js/jquery.min.js' %}"></script>
 
-    <link href="{% static 'application/font-awesome/css/all.css' %}" rel="stylesheet" />
+        <link href="{% static 'application/font-awesome/css/all.css' %}" rel="stylesheet" />
 
-    {% block extra_head %}
+        {% block extra_head %}
 
-    {% endblock %}
+        {% endblock %}
 
-</head>
-<body>
-    {% include 'application/theme_switcher.html' %}
+    </head>
+    <body>
 
-    {% block body %}
-    {% endblock %}
+        {% include 'application/menu_bar.html' %}
+        <div id="content">
+            <div>
+                {% include 'application/theme_switcher.html' %}
+            </div>
+            {% block content %}
+            <div>Place your content here</div>
+            {% endblock %}
+        </div>
 
-</body>
-<footer>
-    {% block footer %}
-    {% endblock %}
-</footer>
+    </body>
 </html>

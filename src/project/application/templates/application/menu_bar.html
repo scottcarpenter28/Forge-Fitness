@@ -1,0 +1,17 @@
+{% load static %}
+
+<script src="{% static 'application/js/menu_bar.js' %}"></script>
+<link rel="stylesheet" href="{% static 'application/css/menu_bar.css' %}">
+<div id="left-menu">
+    <div id="menu-bar" style="left: -500px;">
+        <div>
+            <i id="toggle-menu-close" class="fa-solid fa-x" style="display: none"></i>
+        </div>
+        <div class="logo-container">
+            <img src="{% static 'application/images/ForgeFitness.webp' %}" alt="Application Logo">
+        </div>
+    </div>
+    <div>
+        <i id="toggle-menu-open" class="fa-solid fa-bars"></i>
+    </div>
+</div>
