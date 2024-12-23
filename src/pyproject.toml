@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "forge-fitness"
+version = "0.0.0"
+dependencies = [
+    "django~=4.2",
+    "psycopg2"
+]
+requires-python = ">=3.10"
+authors = [
+    {name = "Scott Carpenter", email = "scottcarpenter28@gmail.com"},
+]
+maintainers = [
+    {name = "Scott Carpenter", email = "scottcarpenter28@gmail.com"},
+]
+description = "Forge your own path to finess"
+readme = "./README.md"
+license = {file = "./LICENSE"}
+keywords = ["Fitness", "Django"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python"
+]
+
+[project.optional-dependencies]
+development = [
+    "black",
+    "mypy",
+]
+
+[project.urls]
+Repository = "https://github.com/scottcarpenter28/Forge-Fitness"
+"Bug Tracker" = "https://github.com/scottcarpenter28/Forge-Fitness/issues"

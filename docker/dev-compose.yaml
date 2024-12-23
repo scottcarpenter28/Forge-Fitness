@@ -1,0 +1,38 @@
+services:
+  forge-fitness:
+    build:
+      dockerfile: ../Dockerfile
+      target: development
+    container_name: "forge-fitness"
+    depends_on:
+      - ff_database
+    environment:
+      db_host: $PG_HOST
+      db_port: $PG_PORT
+      db_USER: $PG_USER_PASSWORD
+    networks:
+      development:
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../:/workspace
+
+  ff_database:
+    container_name: "ff_database"
+    image: postgres:14
+    environment:
+      POSTGRES_PASSWORD: $PG_ADMIN_PASSWORD
+      POSTGRES_USER: $PG_ADMIN
+    networks:
+      development:
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - "database_storage:/var/lib/postgresql/data"
+
+networks:
+  development:
+
+volumes:
+  database_storage:

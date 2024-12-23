@@ -1,0 +1,6 @@
+{
+  "name": "Forge Fitness Development Container",
+  "dockerComposeFile": "../docker/dev-compose.yaml",
+  "service": "forge-fitness",
+  "workspaceFolder": "/workspace",
+}
