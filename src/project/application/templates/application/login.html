@@ -7,7 +7,8 @@
         <div class="centered-image">
             <img src="{% static 'application/images/ForgeFitness.webp' %}" alt="Forge Fitness Logo">
         </div>
-        <form action="">
+        <form action="." method="post">
+            {% csrf_token %}
             <div class="input-group">
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" required>

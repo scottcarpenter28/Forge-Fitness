@@ -10,6 +10,30 @@
         <div class="logo-container">
             <img src="{% static 'application/images/ForgeFitness.webp' %}" alt="Application Logo">
         </div>
+        <div id="links">
+            <ul>
+                <li class="group-link">
+                    Exercise Routines
+                    <ul>
+                        <li class="link"><a href="">Create</a></li>
+                        <li class="link"><a href="">My Routines</a></li>
+                        <li class="link"><a href="">Search for Routines</a></li>
+                    </ul>
+                </li>
+                <li class="group-link">
+                    Progress
+                    <ul>
+                        <li class="link"><a href="">Goals</a></li>
+                        <li class="link"><a href="">History</a></li>
+                    </ul>
+                </li>
+                <li class="link"><a href="">Settings/Account</a></li>
+                {% if user.is_staff or user.is_superuser %}
+                    <li class="link"><a href="/admin">Admin</a></li>
+                {% endif %}
+                <li class="logout-btn"><a class="logout-btn" href="{%url 'logout'%}">Logout</a></li>
+            </ul>
+        </div>
     </div>
     <div>
         <i id="toggle-menu-open" class="fa-solid fa-bars"></i>
