@@ -1,0 +1,38 @@
+#menu-bar{
+    background-color: var(--secondary);
+    height: 100%;
+    max-width: 500px;
+    position: fixed;
+
+    img{
+        border-radius: 3%;
+        width: 70%;
+    }
+}
+
+#left-menu{
+    display: flex;
+    height: 100%;
+    z-index: 999;
+
+    #toggle-menu-open{
+        color: var(--tertiary);
+        padding: 10px;
+        position: fixed;
+        z-index: 1000;
+    }
+    #toggle-menu-open:hover{
+        color: var(--secondary-option);
+    }
+
+    #toggle-menu-close{
+        color: var(--danger-option);
+        padding: 10px;
+        position: fixed;
+        z-index: 1000;
+    }
+
+    #toggle-menu-close:hover{
+        color: var(--danger-option-hover);
+    }
+}

@@ -1,0 +1,254 @@
+/* Root level Styles */
+:root {
+    --base: #ffffff;
+    --secondary: #E0E0E0;
+    --tertiary: #C6C6C6;
+    --text: black;
+
+    --primary-option: #394867;
+    --primary-option-hover: #45587c;
+    --secondary-option: #6C767D;
+    --secondary-option-hover: #8d9aa3;
+    --danger-option: #EC625F;
+    --danger-option-hover: #fc7d7b;
+    --success-option: #5cb85c;
+    --success-option-hover: #75e875;
+    --warning-option: #FFC107;
+    --warning-option-hover: #ffc641;
+}
+
+:root:has(#theme [value="light"]:checked) {
+    color-scheme: light;
+    --base: #ffffff;
+    --secondary: #E0E0E0;
+    --tertiary: #C6C6C6;
+    --text: black;
+}
+
+:root:has(#theme [value="dark"]:checked) {
+    color-scheme: dark;
+    --base: #313131;
+    --secondary: #414141;
+    --tertiary: #525252;
+    --text: white;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --base: #313131;
+        --secondary: #414141;
+        --tertiary: #525252;
+        --text: white;
+    }
+}
+
+/* HTML Elements */
+
+body {
+    color: var(--text);
+    background-color: var(--base);
+    font-family: sans-serif;
+    font-size: 1.5rem;
+    height: 100%;
+    margin: 0;
+}
+
+html {
+    color-scheme: dark light;
+    height: 100%;
+    margin: 0;
+}
+
+img{
+    border-radius: 3%;
+    margin: 50px;
+    width: 60%;
+}
+
+input[type=submit]{
+    background-color: var(--primary-option);
+    color: white;
+    font-size: 1.25rem;
+    width: 96% !important;
+    padding: 0 2px;
+}
+
+input[type=submit]:hover{
+    background-color: var(--primary-option-hover);
+}
+
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=submit],
+select {
+    border: none;
+    border-radius: 5px;
+    font-size: 1.15rem;
+    height: 40px;
+    margin: 10px 10px;
+    width: 95%;
+}
+
+/* Classes */
+.btn{
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1.00rem;
+    height: 40px;
+    width: 100%;
+    padding: 0;
+}
+
+.btn-danger{
+    background-color: var(--danger-option);
+}
+.btn-danger:hover{
+    background-color: var(--danger-option-hover);
+}
+
+.btn-secondary{
+    background-color: var(--secondary-option);
+}
+
+.btn-secondary:hover{
+    background-color: var(--secondary-option-hover);
+}
+
+.center-content{
+    display: flex;
+    justify-content: center;
+}
+
+.centered-image{
+    display: flex;
+    justify-content: center;
+}
+
+.form-container {
+    background-color: var(--secondary);
+    border-radius: 5px;
+    padding: 0 10px 25px;
+
+    width: 30%;
+
+    @media screen and (max-width: 475px){
+        width: 95% !important;
+    }
+    @media screen and (max-width: 900px){
+        width: 90%;
+    }
+    @media screen and (max-width: 1080px){
+        width: 50%;
+    }
+
+}
+
+.input-group label,
+form label {
+    font-size: 1.2rem;
+    padding-left: 10px;
+}
+
+.alert-message{
+    border-radius: 3px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.close-message-btn{
+    margin: 10px;
+}
+.close-message-btn:hover{
+    color: var(--secondary-option-hover);
+}
+
+li.group-link, li.link, li.logout-btn{
+    color: var(--text);
+    font-size: 1.2rem;
+    list-style-type: none;
+    margin: 5px 0;
+}
+
+li.link a{
+    color: var(--text);
+    text-decoration: none;
+}
+
+li.link a:hover{
+    color: var(--secondary-option-hover);
+}
+
+li.logout-btn{
+    margin-top: 20px;
+}
+
+li.logout-btn a{
+    color: white;
+    background-color: var(--danger-option);
+    border-radius: 5px;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+
+li.logout-btn a:hover{
+    background-color: var(--danger-option-hover);
+}
+
+li.info{
+    background-color: var(--tertiary);
+}
+
+li.success{
+    background-color: var(--success-option);
+}
+
+li.warning{
+    background-color: var(--warning-option);
+    color: black;
+}
+
+li.error{
+    background-color: var(--danger-option);
+}
+
+.logo-container{
+    display: flex;
+    justify-content: center;
+    padding: 30px 0;
+}
+
+.messages{
+    font-size: 1.1rem;
+    list-style-type: none;
+    margin: 0;
+    padding: 0 40px;
+}
+
+
+.w50{
+    margin: 0 12px;
+    width: 47%;
+}
+
+
+/* ID's */
+
+#alert-messages{
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+
+#body{
+    display: flex;
+}
+
+#content {
+    width: 100%;
+    padding: 30px 20px;
+}

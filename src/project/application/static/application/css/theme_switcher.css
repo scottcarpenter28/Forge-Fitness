@@ -1,0 +1,29 @@
+#theme-switcher {
+    float: right;
+
+    #current_theme{
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        margin-right: 10px;
+    }
+
+    select{
+        display: none;
+    }
+
+    i{
+        align-items: center;
+        display: flex;
+        height: 30px;
+        justify-content: center;
+        margin-right: 70px;
+        position: fixed;
+        width: 30px;
+    }
+    i:hover{
+        color: var(--secondary-option);
+        border-color: var(--primary-option);
+    }
+
+}

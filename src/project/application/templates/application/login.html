@@ -1,0 +1,34 @@
+{% extends "application/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="center-content">
+    <div id="login-form" class="form-container">
+        <div class="centered-image">
+            <img src="{% static 'application/images/ForgeFitness.webp' %}" alt="Forge Fitness Logo">
+        </div>
+        <form action="." method="post">
+            {% csrf_token %}
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+            <input type="submit" value="Login">
+        </form>
+        <div style="display: flex;">
+            <div class="w50">
+                <button class="btn btn-danger">Forgot Password?</button>
+            </div>
+            <div class="w50">
+                <a href="/create-account">
+                    <button class="btn btn-secondary">Create Account</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
