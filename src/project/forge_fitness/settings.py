@@ -15,7 +15,14 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-load_dotenv()
+# Specify the path to your .env file
+dotenv_path = Path("/workspace/docker/.env")
+
+# Load the .env file
+if dotenv_path.exists():
+    load_dotenv(dotenv_path)
+else:
+    load_dotenv()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

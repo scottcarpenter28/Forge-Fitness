@@ -78,10 +78,13 @@ input[type=submit]:hover{
 }
 
 input[type=text],
+input[type=email],
 input[type=password],
-input[type=submit] {
+input[type=submit],
+select {
     border: none;
     border-radius: 5px;
+    font-size: 1.15rem;
     height: 40px;
     margin: 10px 10px;
     width: 95%;
@@ -142,7 +145,8 @@ input[type=submit] {
 
 }
 
-.input-group label{
+.input-group label,
+form label {
     font-size: 1.2rem;
     padding-left: 10px;
 }
@@ -221,6 +225,7 @@ li.error{
 .messages{
     font-size: 1.1rem;
     list-style-type: none;
+    margin: 0;
     padding: 0 40px;
 }
 
@@ -232,6 +237,12 @@ li.error{
 
 
 /* ID's */
+
+#alert-messages{
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
 
 #body{
     display: flex;

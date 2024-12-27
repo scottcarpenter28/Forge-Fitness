@@ -2,9 +2,12 @@
 requires = ["setuptools >= 61.0"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools.packages.find]
+where = ["project"]
+
 [project]
-name = "forge-fitness"
-version = "0.0.0"
+name = "forge_fitness"
+version = "0.0.1"
 dependencies = [
     "django~=4.2",
     "psycopg2",
@@ -30,6 +33,7 @@ classifiers = [
 development = [
     "black",
     "mypy",
+    "pytest"
 ]
 
 [project.urls]

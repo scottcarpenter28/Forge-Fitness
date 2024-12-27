@@ -14,6 +14,7 @@ $(document).ready(function(){
 
     $('#toggle-menu-close').click(function(){
         menu_bar.animate({"left":"-500px"}, "slow");
+        console.log(toggle_close_btn);
         toggle_open_btn.fadeIn();
         toggle_close_btn.hide();
     });
