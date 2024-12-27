@@ -33,7 +33,6 @@ classifiers = [
 development = [
     "black",
     "mypy",
-    "pytest"
 ]
 
 [project.urls]
