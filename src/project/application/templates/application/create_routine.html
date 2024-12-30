@@ -2,6 +2,9 @@
 {% load static %}
 
 {% block content %}
+
+<script src="{% static 'application/js/create_routine.js' %}"></script>
+
 <div class="center-content">
     <div class="create-routine-form-container">
         <form action="." method="post">
@@ -10,7 +13,7 @@
                     <h3>Routine Info</h3>
                     <div class="input-group">
                         <label for="routine-name">Routine Name</label>
-                        <input type="text" id="routine-name" name="routine_name" placeholder="" required>
+                        <input type="text" id="routine-name" name="routine_name" placeholder="" required value="{{ form.routine_name.value|default:'' }}">
                     </div>
                     <div class="input-group">
                         <label for="routine-description">Description</label>
@@ -19,14 +22,14 @@
                     <div class="row">
                         <div class="col-50 col-md-100">
                             <div class="input-group">
-                                <label for="estimated-time">Estimated time (minutes)</label>
+                                <label for="estimated-time">Estimated Time (minutes)</label>
                                 <input type="number" id="estimated-time" name="estimated_time">
                             </div>
                         </div>
                         <div class="col-50 col-md-100">
                             <div class="input-group">
-                                <label for="impact">Impact</label>
-                                <select name="impact" id="impact"></select>
+                                <label for="id_impact">Impact</label>
+                                {{ form.impact }}
                             </div>
                         </div>
                     </div>
@@ -34,17 +37,17 @@
                         <label for="tags">Tags</label>
                         <input type="text" id="tags" name="tags">
                     </div>
-                    <div class="input-group">
+                    <div class="select-group">
                         <label for="target-muscles">Target Muscles</label>
-                        <input type="text" id="target-muscles" name="target-muscles">
+                        {{ form.target_muscles }}
                     </div>
                     <div class="input-group">
-                        <label for="routine-type">Routine Type</label>
-                        <select name="routine-type" id="routine-type"></select>
+                        <label for="id_routine-type">Routine Type</label>
+                        {{ form.routine_type }}
                     </div>
-                    <div class="input-group">
-                        <label for="equipment">Equipment</label>
-                        <select name="equipment" id="equipment"></select>
+                    <div class="select-group">
+                        <label for="id_equipment">Equipment</label>
+                        {{ form.equipment }}
                     </div>
                 </div>
                 <div class="col-50 col-md-100 form-container">
@@ -114,7 +117,15 @@
             <div class="row">
                 <div class="col-100 form-container">
                     <!--       Add hidden field for sending table data         -->
-                    <h2>Bottom</h2>
+                    <input type="hidden" name="routine" value="{{ form.routine.value|default:'' }}">
+                    <h3>Routine</h3>
+                    <div class="input-group">
+                        {% if form.routine_name.value %}
+                            <input type="submit" value="Update Routine">
+                        {% else %}
+                            <input type="submit" value="Create Routine">
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </form>
