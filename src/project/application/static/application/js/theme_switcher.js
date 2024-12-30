@@ -25,6 +25,7 @@ $(document).ready(function () {
         current_icon.hide();
         next_icon.fadeIn();
         theme_select_box.val(next_theme);
+        document.cookie = `theme_preference=${next_theme}`;
     }
 
     /*
@@ -46,5 +47,18 @@ $(document).ready(function () {
     light_mode_icon.click(updateTheme);
     dark_mode_icon.click(updateTheme);
     system_mode_icon.click(updateTheme);
+
+    const cookies = decodeURIComponent(document.cookie).split(";");
+    for(let cookie of cookies){
+        cookie = cookie.toLowerCase().trim();
+        switch(cookie) {
+            case `theme_preference=${THEMES.LIGHT}`:
+                dark_mode_icon.click();
+            // Intentional fall through to set icons up correctly
+            case `theme_preference=${THEMES.DARK}`:
+                system_mode_icon.click();
+                break
+        }
+    }
 
 });
