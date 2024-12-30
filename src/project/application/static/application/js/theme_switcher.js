@@ -51,13 +51,11 @@ $(document).ready(function () {
     const cookies = decodeURIComponent(document.cookie).split(";");
     for(let cookie of cookies){
         cookie = cookie.toLowerCase().trim();
-        switch(cookie) {
-            case `theme_preference=${THEMES.LIGHT}`:
-                dark_mode_icon.click();
-            // Intentional fall through to set icons up correctly
-            case `theme_preference=${THEMES.DARK}`:
-                system_mode_icon.click();
-                break
+        if(cookie === `theme_preference=${THEMES.DARK}`)
+            system_mode_icon.click();
+        if(cookie === `theme_preference=${THEMES.LIGHT}`) {
+            system_mode_icon.click();
+            dark_mode_icon.click();
         }
     }
 

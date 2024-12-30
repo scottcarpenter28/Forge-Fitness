@@ -1,0 +1,123 @@
+{% extends "application/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="center-content">
+    <div class="create-routine-form-container">
+        <form action="." method="post">
+            <div class="row">
+                <div class="col-50 col-md-100 form-container">
+                    <h3>Routine Info</h3>
+                    <div class="input-group">
+                        <label for="routine-name">Routine Name</label>
+                        <input type="text" id="routine-name" name="routine_name" placeholder="" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="routine-description">Description</label>
+                        <textarea name="routine-description" id="routine-description" cols="30" rows="4"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-50 col-md-100">
+                            <div class="input-group">
+                                <label for="estimated-time">Estimated time (minutes)</label>
+                                <input type="number" id="estimated-time" name="estimated_time">
+                            </div>
+                        </div>
+                        <div class="col-50 col-md-100">
+                            <div class="input-group">
+                                <label for="impact">Impact</label>
+                                <select name="impact" id="impact"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="tags">Tags</label>
+                        <input type="text" id="tags" name="tags">
+                    </div>
+                    <div class="input-group">
+                        <label for="target-muscles">Target Muscles</label>
+                        <input type="text" id="target-muscles" name="target-muscles">
+                    </div>
+                    <div class="input-group">
+                        <label for="routine-type">Routine Type</label>
+                        <select name="routine-type" id="routine-type"></select>
+                    </div>
+                    <div class="input-group">
+                        <label for="equipment">Equipment</label>
+                        <select name="equipment" id="equipment"></select>
+                    </div>
+                </div>
+                <div class="col-50 col-md-100 form-container">
+                    <h3>Create Routine</h3>
+                    <div id="cardio-routine-creator">
+                        <h5>Cardio</h5>
+                        <div class="row">
+                            <div class="col-50 col-md-100">
+                                <div class="input-group">
+                                    <label for="cardio-exercise">Exercise</label>
+                                    <input type="text" name="cardio_exercise" id="cardio-exercise">
+                                </div>
+                            </div>
+                            <div class="col-50 col-md-100">
+                                <div class="input-group">
+                                    <label for="cardio-duration">Time</label>
+                                    <input type="number" name="cardio_duration" id="cardio-duration" value="30" min="0">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <button id="add-cardio-exercise" class="btn btn-primary">Add</button>
+                        </div>
+                        <div class="input-btn-group">
+                            <label for="cardio-rest">Add Rest (seconds)</label>
+                            <div class="input-btn-inline">
+                                <input type="text" id="cardio-rest" name="cardio_rest" value="30" min>
+                                <button class="btn-primary btn-input"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="strength-routine-creator">
+                        <h5>Strength</h5>
+                        <div class="input-group">
+                            <label for="strength-exercise">Exercise</label>
+                            <input type="text" name="cardio_exercise" id="strength-exercise">
+                        </div>
+                        <div class="row">
+                            <div class="col-50 col-md-100">
+                                <div class="input-group">
+                                    <label for="reps">Reps</label>
+                                    <input type="number" name="cardio_duration" id="reps" value="10" min="0">
+                                </div>
+                            </div>
+                            <div class="col-50 col-md-100">
+                                <div class="input-group">
+                                    <label for="sets">Sets</label>
+                                    <input type="number" name="cardio_duration" id="sets" value="3" min="0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <button id="add-strength-exercise" class="btn btn-primary">Add</button>
+                        </div>
+                        <div class="input-group">
+                            <label for="set-rest">Rest Between Sets (seconds)</label>
+                            <input type="number" name="set_rest" id="set-rest" value="30" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label for="exercise-rest">Rest Between Exercise (seconds)</label>
+                            <input type="number" name="exercise_rest" id="exercise-rest" value="45" min="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-100 form-container">
+                    <!--       Add hidden field for sending table data         -->
+                    <h2>Bottom</h2>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

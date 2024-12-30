@@ -69,8 +69,6 @@ input[type=submit]{
     background-color: var(--primary-option);
     color: white;
     font-size: 1.25rem;
-    width: 96% !important;
-    padding: 0 2px;
 }
 
 input[type=submit]:hover{
@@ -79,15 +77,28 @@ input[type=submit]:hover{
 
 input[type=text],
 input[type=email],
+input[type=number],
 input[type=password],
 input[type=submit],
 select {
+    height: 40px;
+    box-sizing: border-box !important;
+    padding-left: 10px !important;
+
+}
+
+input[type=text],
+input[type=email],
+input[type=number],
+input[type=password],
+input[type=submit],
+select,
+textarea {
     border: none;
     border-radius: 5px;
     font-size: 1.15rem;
-    height: 40px;
     margin: 10px 10px;
-    width: 95%;
+    width: 100%;
 }
 
 /* Classes */
@@ -97,6 +108,7 @@ select {
     color: white;
     font-size: 1.00rem;
     height: 40px;
+    margin: 10px;
     width: 100%;
     padding: 0;
 }
@@ -106,6 +118,13 @@ select {
 }
 .btn-danger:hover{
     background-color: var(--danger-option-hover);
+}
+
+.btn-primary{
+    background-color: var(--primary-option);
+}
+.btn-primary:hover{
+    background-color: var(--primary-option-hover);
 }
 
 .btn-secondary{
@@ -119,6 +138,8 @@ select {
 .center-content{
     display: flex;
     justify-content: center;
+    margin: 15px;
+
 }
 
 .centered-image{
@@ -126,17 +147,33 @@ select {
     justify-content: center;
 }
 
+.create-routine-form-container{
+    @media screen and (min-width: 960px){
+        width: 70%;
+    }
+    @media screen and (max-width: 960px){
+        width: 90%;
+    }
+}
+
+.create-account-form-container,
+.login-form-container,
 .form-container {
     background-color: var(--secondary);
     border-radius: 5px;
     padding: 0 10px 25px;
+}
 
+.form-container{
+    margin: 15px 10px;
+}
+
+.login-form-container, .create-account-form-container {
     width: 30%;
-
     @media screen and (max-width: 475px){
         width: 95% !important;
     }
-    @media screen and (max-width: 900px){
+    @media screen and (max-width: 960px){
         width: 90%;
     }
     @media screen and (max-width: 1080px){
@@ -144,6 +181,46 @@ select {
     }
 
 }
+
+div.input-group{
+    padding: 10px 40px 0 10px;
+}
+
+.input-btn-group {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 25px 0 10px;
+}
+
+.input-btn-inline {
+    display: flex;
+    align-items: center;
+    margin: 10px 0 10px 10px;
+}
+
+.input-btn-inline input[type="text"] {
+    border-radius: 5px 0 0 5px;
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    height: 40px;
+}
+
+.input-btn-inline .btn-primary {
+    color: white;
+    height: 40px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    background-color: var(--primary-option);
+    min-width: 5%;
+    padding: 0;
+}
+
+.input-btn-inline .btn-primary:hover {
+    background-color: var(--primary-option-hover);
+}
+
 
 .input-group label,
 form label {
@@ -165,6 +242,26 @@ form label {
 }
 .close-message-btn:hover{
     color: var(--secondary-option-hover);
+}
+
+div.col-50{
+    width: 50%;
+}
+
+div.col-100{
+    width: 100%;
+}
+
+div.col-md-100{
+    @media screen and (max-width: 960px) {
+        width: 100% !important;
+    }
+}
+
+div.row{
+    @media screen and (min-width: 960px) {
+        display: flex;
+    }
 }
 
 li.group-link, li.link, li.logout-btn{
@@ -231,8 +328,12 @@ li.error{
 
 
 .w50{
-    margin: 0 12px;
-    width: 47%;
+    margin: 0 5px;
+    width: 50%;
+}
+
+.w100 {
+    width: 100%;
 }
 
 
