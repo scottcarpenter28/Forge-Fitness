@@ -4,12 +4,13 @@
 {% block content %}
 
 <script src="{% static 'application/js/create_routine.js' %}"></script>
+<link href="{% static 'application/css/create_routine.css' %}" rel="stylesheet" />
 
 <div class="center-content">
     <div class="create-routine-form-container">
-        <form action="." method="post">
-            <div class="row">
-                <div class="col-50 col-md-100 form-container">
+        <div class="row">
+            <div class="col-50 col-md-100 form-container">
+                <form action="." method="post">
                     <h3>Routine Info</h3>
                     <div class="input-group">
                         <label for="routine-name">Routine Name</label>
@@ -42,83 +43,96 @@
                         {{ form.target_muscles }}
                     </div>
                     <div class="input-group">
-                        <label for="id_routine-type">Routine Type</label>
+                        <label for="id_routine_type">Routine Type</label>
                         {{ form.routine_type }}
                     </div>
                     <div class="select-group">
                         <label for="id_equipment">Equipment</label>
                         {{ form.equipment }}
                     </div>
-                </div>
-                <div class="col-50 col-md-100 form-container">
-                    <h3>Create Routine</h3>
-                    <div id="cardio-routine-creator">
-                        <h5>Cardio</h5>
-                        <div class="row">
-                            <div class="col-50 col-md-100">
-                                <div class="input-group">
-                                    <label for="cardio-exercise">Exercise</label>
-                                    <input type="text" name="cardio_exercise" id="cardio-exercise">
-                                </div>
-                            </div>
-                            <div class="col-50 col-md-100">
-                                <div class="input-group">
-                                    <label for="cardio-duration">Time</label>
-                                    <input type="number" name="cardio_duration" id="cardio-duration" value="30" min="0">
-                                </div>
+                    <input id="exercise-routine" type="hidden" name="routine" value="{{ form.routine.value|default:'' }}">
+                </form>
+            </div>
+            <div class="col-50 col-md-100 form-container">
+                <h3>Create Routine</h3>
+                <div id="cardio-routine-creator">
+                    <h5>Cardio</h5>
+                    <div class="row">
+                        <div class="col-50 col-md-100">
+                            <div class="input-group">
+                                <label for="cardio-exercise">Exercise</label>
+                                <input type="text" name="cardio_exercise" id="cardio-exercise">
                             </div>
                         </div>
-
-                        <div class="input-group">
-                            <button id="add-cardio-exercise" class="btn btn-primary">Add</button>
-                        </div>
-                        <div class="input-btn-group">
-                            <label for="cardio-rest">Add Rest (seconds)</label>
-                            <div class="input-btn-inline">
-                                <input type="text" id="cardio-rest" name="cardio_rest" value="30" min>
-                                <button class="btn-primary btn-input"><i class="fa-solid fa-plus"></i></button>
+                        <div class="col-50 col-md-100">
+                            <div class="input-group">
+                                <label for="cardio-duration">Time</label>
+                                <input type="number" name="cardio_duration" id="cardio-duration" value="30" min="0">
                             </div>
                         </div>
                     </div>
-                    <div id="strength-routine-creator">
-                        <h5>Strength</h5>
-                        <div class="input-group">
-                            <label for="strength-exercise">Exercise</label>
-                            <input type="text" name="cardio_exercise" id="strength-exercise">
+
+                    <div class="input-group">
+                        <button id="add-cardio-exercise" class="btn btn-primary">Add</button>
+                    </div>
+                    <div class="input-btn-group">
+                        <label for="cardio-rest">Add Rest (seconds)</label>
+                        <div class="input-btn-inline">
+                            <input type="text" id="cardio-rest" name="cardio_rest" value="30" min>
+                            <button class="btn-primary btn-input"><i class="fa-solid fa-plus"></i></button>
                         </div>
-                        <div class="row">
-                            <div class="col-50 col-md-100">
-                                <div class="input-group">
-                                    <label for="reps">Reps</label>
-                                    <input type="number" name="cardio_duration" id="reps" value="10" min="0">
-                                </div>
+                    </div>
+                </div>
+                <div id="strength-routine-creator" style="display: none">
+                    <h5>Strength</h5>
+                    <div class="input-group">
+                        <label for="strength-exercise">Exercise</label>
+                        <input type="text" name="cardio_exercise" id="strength-exercise">
+                    </div>
+                    <div class="row">
+                        <div class="col-50 col-md-100">
+                            <div class="input-group">
+                                <label for="reps">Reps</label>
+                                <input type="number" name="cardio_duration" id="reps" value="10" min="0">
                             </div>
-                            <div class="col-50 col-md-100">
-                                <div class="input-group">
-                                    <label for="sets">Sets</label>
-                                    <input type="number" name="cardio_duration" id="sets" value="3" min="0">
-                                </div>
+                        </div>
+                        <div class="col-50 col-md-100">
+                            <div class="input-group">
+                                <label for="sets">Sets</label>
+                                <input type="number" name="cardio_duration" id="sets" value="3" min="0">
                             </div>
                         </div>
-                        <div class="input-group">
-                            <button id="add-strength-exercise" class="btn btn-primary">Add</button>
-                        </div>
-                        <div class="input-group">
-                            <label for="set-rest">Rest Between Sets (seconds)</label>
-                            <input type="number" name="set_rest" id="set-rest" value="30" min="0">
-                        </div>
-                        <div class="input-group">
-                            <label for="exercise-rest">Rest Between Exercise (seconds)</label>
-                            <input type="number" name="exercise_rest" id="exercise-rest" value="45" min="0">
-                        </div>
+                    </div>
+                    <div class="input-group">
+                        <button id="add-strength-exercise" class="btn btn-primary">Add</button>
+                    </div>
+                    <div class="input-group">
+                        <label for="set-rest">Rest Between Sets (seconds)</label>
+                        <input type="number" name="set_rest" id="set-rest" value="30" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="exercise-rest">Rest Between Exercise (seconds)</label>
+                        <input type="number" name="exercise_rest" id="exercise-rest" value="45" min="0">
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-100 form-container">
-                    <!--       Add hidden field for sending table data         -->
-                    <input type="hidden" name="routine" value="{{ form.routine.value|default:'' }}">
+        </div>
+        <div class="row">
+                <div class="col-100 col-md-100 form-container">
                     <h3>Routine</h3>
+                    <table id="routine-table">
+                        <tr>
+                            <th scope="col">Exercise</th>
+                            <th scope="col" class="strength-routine-col">Reps</th>
+                            <th scope="col" class="strength-routine-col">Sets</th>
+                            <th scope="col" class="cardio-routine-col">Time</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </table>
+
+                    <div id="mobile-table">
+                    </div>
+
                     <div class="input-group">
                         {% if form.routine_name.value %}
                             <input type="submit" value="Update Routine">
@@ -128,7 +142,6 @@
                     </div>
                 </div>
             </div>
-        </form>
     </div>
 </div>
 {% endblock %}
