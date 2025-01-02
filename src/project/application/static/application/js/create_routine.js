@@ -1,16 +1,19 @@
 class Exercise {
     constructor({ id, exercise, reps, sets, duration }) {
-        this.id = id;
+        this.id = `exercise_${id}`;
         this.exercise = exercise;
         this.reps = reps || 0;
         this.sets = sets || 0;
         this.duration = duration || 0;
     }
 
+    set_exercise_id(id){
+        this.id = `exercise_${id}`;
+    }
+
     table_element() {
         return `
-            <tr>
-                <td style="display: none">${this.id}</td>
+            <tr id="tr_${this.id}">
                 <td>${this.exercise}</td>
                 <td class="strength-routine-col">${this.reps || ''}</td>
                 <td class="strength-routine-col">${this.sets || ''}</td>
@@ -34,7 +37,7 @@ class Exercise {
 
     mobile_table_element() {
         return `
-            <div class="mobile-table-card">
+            <div id="mb_${this.id}" class="mobile-table-card">
                 <span style="display: none">${this.id}</span>
                 <span>Exercise: ${this.exercise}</span>
                 <span class="strength-routine-col">Reps: ${this.reps || ''}</span>
@@ -151,7 +154,7 @@ $(document).ready(function() {
 
         // Create a new exercise object
         const new_exercise = new Exercise({
-            id: current_exercise_routine.length,
+            id: Object.values(current_exercise_routine).length,
             exercise: exercise_name,
             duration: exercise_duration,
             sets: num_sets,
@@ -159,8 +162,7 @@ $(document).ready(function() {
         });
 
         // Add the exercise to the routine array
-        current_exercise_routine.push(new_exercise);
-        exercise_routine_input.val(JSON.stringify(current_exercise_routine));
+        current_exercise_routine[new_exercise.id] = new_exercise;
         render_tables();
     }
 
@@ -173,23 +175,136 @@ $(document).ready(function() {
         strength_exercise_name_input.val("");
     });
 
+    /*
+    * Updates the tables and hidden input for the current routine.
+     */
     function render_tables(){
-        $("#routine-table tbody tr").remove()
-        $("#mobile-table .mobile-table-card").remove()
+        $("#routine-table tbody tr").remove();
+        $("#mobile-table .mobile-table-card").remove();
+        exercise_routine_input.val(JSON.stringify(Object.values(current_exercise_routine)));
 
-        current_exercise_routine.forEach(exercise => {
+        Object.values(current_exercise_routine).forEach(exercise => {
             $("#routine-table tbody").append(exercise.table_element());
             $("#mobile-table").append(exercise.mobile_table_element());
-        })
+        });
         update_routine_display();
     }
 
 
     let exercise_routine_input = $("#exercise-routine");
-    let current_exercise_routine = [];
-    if(exercise_routine_input.val() !== "null")
-        current_exercise_routine = JSON.parse(exercise_routine_input.val()).map(exercise => new Exercise({...exercise}));
-
+    let current_exercise_routine = {};
+    if(exercise_routine_input.val() !== "null") {
+        JSON.parse(exercise_routine_input.val()).forEach((exercise, index) => {
+                exercise = new Exercise({id: index, ...exercise});
+                current_exercise_routine[exercise.id] = exercise;
+            }
+        );
+    }
     render_tables();
+
+
+    // Function to get the element ID to look up related exercise with.
+    const get_element_id = (element) => element.id.slice(element.id.indexOf("_")+1);
+
+    /*
+    * Moves the selected exercise up.
+    * element: The HTML element representing an exercise to move up.
+     */
+    function move_exercise_up(element){
+        const exercise_id = get_element_id(element);
+        const current_order = Object.values(current_exercise_routine);
+        // No need to do anything if this is the first element
+        if(exercise_id === current_order[0].id)
+            return;
+
+        let index = 0;
+        current_exercise_routine = {};
+        for(let exercise of current_order){
+            if(exercise.id === exercise_id) {
+                let temp_current_order = Object.values(current_exercise_routine);
+                let before_exercise = temp_current_order[index - 1];
+                // Move the matching element up.
+                exercise.set_exercise_id(index -1)
+                current_exercise_routine[exercise.id] = exercise;
+                // Move the element from above down one.
+                before_exercise.set_exercise_id(index)
+                current_exercise_routine[before_exercise.id] = before_exercise;
+            }
+            else {
+                exercise.set_exercise_id(index)
+                current_exercise_routine[exercise.id] = exercise;
+            }
+            index ++;
+        }
+        render_tables();
+    }
+
+    $("#routine-table").on("click",".routine-actions .move-exercise-up", function(element){
+        move_exercise_up(element.currentTarget.closest("tr"));
+    });
+    $("#mobile-table").on("click",".routine-actions .move-exercise-up", function(element){
+        move_exercise_up(element.currentTarget.closest("div.mobile-table-card"));
+    });
+
+    /*
+    * Moves the exercise element down in the list.
+    * element: The html element to find a matching exercise pair for.
+     */
+    function move_exercise_down(element){
+        const exercise_id = get_element_id(element);
+        const current_order = Object.values(current_exercise_routine);
+
+        let matching_element = undefined;
+        let index = 0;
+        current_exercise_routine = {};
+        for(let exercise of current_order){
+            if(exercise.id === exercise_id) {
+                matching_element = exercise;
+                continue;
+            }
+            exercise.set_exercise_id(index);
+            current_exercise_routine[exercise.id] = exercise;
+            index ++;
+
+            // Put the matching exercise below the current exercise.
+            if (matching_element !== undefined) {
+                matching_element.set_exercise_id(index);
+                current_exercise_routine[matching_element.id] = matching_element;
+                matching_element = undefined;
+                index ++;
+            }
+        }
+
+        // If the element selected was the bottom most, we need to re-add it.
+        if(matching_element !== undefined) {
+            matching_element.set_exercise_id(index);
+            current_exercise_routine[matching_element.id] = matching_element;
+        }
+        render_tables();
+    }
+
+    $("#routine-table").on("click", ".routine-actions .move-exercise-down", function(element){
+        move_exercise_down(element.currentTarget.closest("tr"));
+    });
+    $("#mobile-table").on("click",".routine-actions .move-exercise-down", function(element){
+        move_exercise_down(element.currentTarget.closest("div.mobile-table-card"));
+    });
+
+    /*
+    * Removes an exercise element from the table.
+    * element: The HTML element to find a matching exercise object with.
+     */
+    function delete_exercise(element){
+        const exercise_id = get_element_id(element);
+        delete current_exercise_routine[exercise_id];
+        render_tables();
+    }
+
+    $("#routine-table").on("click", ".routine-actions .remove-exercise", function(element){
+        delete_exercise(element.currentTarget.closest("tr"))
+    });
+    $("#mobile-table").on("click",".routine-actions .remove-exercise", function(element){
+        delete_exercise(element.currentTarget.closest("div.mobile-table-card"));
+    });
 
 });
