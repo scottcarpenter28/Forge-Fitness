@@ -114,35 +114,35 @@ $(document).ready(function() {
         const num_sets = parseInt(num_sets_input.val());
 
         if (exercise_name === "") {
-            console.error("No name provided for exercise.");
+            add_alert(ALERT_TYPES.ERROR, "No name provided for exercise.");
             return;
         }
         if (!Number.isInteger(exercise_duration)) {
-            console.error("Exercise duration must be a number.");
+            add_alert(ALERT_TYPES.ERROR, "Exercise duration must be a number.");
             cardio_exercise_duration_input.val("30");
             return;
         }
         if (exercise_duration < 5) {
-            console.error("Exercise duration must be at least 5 seconds.");
+            add_alert(ALERT_TYPES.ERROR, "Exercise duration must be at least 5 seconds.");
             return;
         }
         if(!Number.isInteger(num_reps)) {
-            console.error("Exercise duration must be a number.");
+            add_alert(ALERT_TYPES.ERROR, "Exercise duration must be a number.");
             num_reps_input.val("10");
             return;
         }
         if(num_reps <= 0) {
-            console.error("Minimum reps for a set is 1.");
+            add_alert(ALERT_TYPES.ERROR, "Minimum reps for a set is 1.");
             num_reps_input.val("1");
             return;
         }
         if(!Number.isInteger(num_sets)) {
-            console.error("Exercise duration must be a number.");
+            add_alert(ALERT_TYPES.ERROR,"Exercise duration must be a number.");
             num_sets_input.value("3");
             return;
         }
         if (num_sets <= 0) {
-            console.error("You must have at least 1 set.");
+            add_alert(ALERT_TYPES.ERROR, "You must have at least 1 set.");
             num_sets_input.value("1");
             return;
         }

@@ -1,5 +1,6 @@
 from typing import Optional
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
@@ -15,4 +16,5 @@ def create_routine(request, routine_id: Optional[str] = None):
         form = RoutineForm(request.POST)
         if form.is_valid():
             pass
+    messages.error(request, "This is a test")
     return render(request, "application/create_routine.html", {"form": form})
