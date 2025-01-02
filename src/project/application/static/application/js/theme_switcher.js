@@ -25,7 +25,7 @@ $(document).ready(function () {
         current_icon.hide();
         next_icon.fadeIn();
         theme_select_box.val(next_theme);
-        document.cookie = `theme_preference=${next_theme}`;
+        document.cookie = `theme_preference=${next_theme};path=/;`;
     }
 
     /*

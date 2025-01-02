@@ -87,19 +87,19 @@
                     <h5>Strength</h5>
                     <div class="input-group">
                         <label for="strength-exercise">Exercise</label>
-                        <input type="text" name="cardio_exercise" id="strength-exercise">
+                        <input type="text" name="strength_exercise" id="strength-exercise">
                     </div>
                     <div class="row">
                         <div class="col-50 col-md-100">
                             <div class="input-group">
-                                <label for="reps">Reps</label>
-                                <input type="number" name="cardio_duration" id="reps" value="10" min="0">
+                                <label for="num_reps">Reps</label>
+                                <input type="number" name="reps" id="num-reps" value="10" min="0">
                             </div>
                         </div>
                         <div class="col-50 col-md-100">
                             <div class="input-group">
-                                <label for="sets">Sets</label>
-                                <input type="number" name="cardio_duration" id="sets" value="3" min="0">
+                                <label for="num_sets">Sets</label>
+                                <input type="number" name="sets" id="num-sets" value="3" min="0">
                             </div>
                         </div>
                     </div>
@@ -121,13 +121,19 @@
                 <div class="col-100 col-md-100 form-container">
                     <h3>Routine</h3>
                     <table id="routine-table">
-                        <tr>
-                            <th scope="col">Exercise</th>
-                            <th scope="col" class="strength-routine-col">Reps</th>
-                            <th scope="col" class="strength-routine-col">Sets</th>
-                            <th scope="col" class="cardio-routine-col">Time</th>
-                            <th scope="col"></th>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th scope="col" style="display: none">ID</th>
+                                <th scope="col">Exercise</th>
+                                <th scope="col" class="strength-routine-col">Reps</th>
+                                <th scope="col" class="strength-routine-col">Sets</th>
+                                <th scope="col" class="cardio-routine-col">Time</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
                     </table>
 
                     <div id="mobile-table">
