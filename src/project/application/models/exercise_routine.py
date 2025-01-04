@@ -1,3 +1,5 @@
+import json
+
 from uuid import uuid4
 
 from django.contrib.auth.models import User
@@ -36,6 +38,38 @@ class ExerciseRoutine(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def to_dict(self):
+        routine_exercises = Exercise.objects.filter(routine=self).all()
+        exercises = [exercise.to_dict() for exercise in routine_exercises]
+
+        routine_equipment = RoutineEquipment.objects.filter(routine=self).all()
+        equipment_ids = [
+            equipment.get_equipment_fk_id() for equipment in routine_equipment
+        ]
+
+        routine_target_muscles = RoutineTargetMuscle.objects.filter(routine=self).all()
+        target_muscle_ids = [
+            muscle.get_muscle_fk_id() for muscle in routine_target_muscles
+        ]
+
+        routine_tags = RoutineTag.objects.filter(routine=self).all()
+        tags = ", ".join(tag.tag for tag in routine_tags)
+
+        return {
+            "routine_name": self.routine_name,
+            "description": self.description,
+            "estimated_duration": self.estimated_duration,
+            "impact": self.impact,
+            "tags": tags,
+            "target_muscles": target_muscle_ids,
+            "routine_type": "Cardio",
+            "equipment": equipment_ids,
+            "is_public": self.is_public,
+            "set_rest_time": self.set_rest_time,
+            "exercise_rest_time": self.exercise_rest_time,
+            "routine": json.dumps(exercises),
+        }
+
 
 class Exercise(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid4)
@@ -50,6 +84,14 @@ class Exercise(models.Model):
         help_text="The order of the exercise within the routine."
     )
 
+    def to_dict(self):
+        return {
+            "exercise": self.exercise,
+            "reps": self.reps,
+            "sets": self.sets,
+            "duration": self.duration,
+        }
+
 
 class RoutineTag(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid4)
@@ -62,8 +104,14 @@ class RoutineTargetMuscle(models.Model):
     routine = models.ForeignKey(ExerciseRoutine, on_delete=models.CASCADE)
     muscle = models.ForeignKey(Muscle, on_delete=models.CASCADE)
 
+    def get_muscle_fk_id(self) -> int:
+        return self.muscle.id
+
 
 class RoutineEquipment(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid4)
     routine = models.ForeignKey(ExerciseRoutine, on_delete=models.CASCADE)
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)
+
+    def get_equipment_fk_id(self) -> int:
+        return self.equipment.id

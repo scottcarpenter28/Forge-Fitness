@@ -20,7 +20,7 @@ class RoutineForm(forms.Form):
         required=True,
         error_messages={
             "required": "Estimated time is required.",
-            "invalid": "Estimated time must be a number and at least 5 minutes.",
+            "min_value": "Estimated time must at least 5 minutes.",
         },
         validators=[MinValueValidator(4)],
     )
@@ -29,7 +29,7 @@ class RoutineForm(forms.Form):
         help_text="Rest time between sets in seconds.",
         error_messages={
             "required": "Rest time between sets is required.",
-            "invalid": "Rest time must be a number and at least 5 seconds.",
+            "min_value": "Set rest time must at least 5 seconds.",
         },
         validators=[MinValueValidator(4)],
     )
@@ -38,7 +38,7 @@ class RoutineForm(forms.Form):
         help_text="Rest time between exercise in seconds.",
         error_messages={
             "required": "Rest time between exercises is required.",
-            "invalid": "Rest time must be a number and at least 5 seconds.",
+            "min_value": "Rest time must at least 5 seconds.",
         },
         validators=[MinValueValidator(4)],
     )

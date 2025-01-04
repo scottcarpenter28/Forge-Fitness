@@ -1,9 +1,9 @@
 import logging
-from typing import Optional
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls.base import reverse
 
 from application.forms.routine_form import RoutineForm
 from application.utils.form_messages import add_error_messages
@@ -17,9 +17,7 @@ from application.models.exercise_routine import (
 
 
 @login_required
-def create_routine(request, routine_id: Optional[str] = None):
-    # Todo: If a routine_id is provided, find the routine
-
+def create_routine(request):
     form = RoutineForm()
     if request.method == "POST":
         form = RoutineForm(request.POST)
@@ -33,10 +31,8 @@ def create_routine(request, routine_id: Optional[str] = None):
                     impact=form.cleaned_data["impact"],
                     routine_type=form.cleaned_data["routine_type"],
                     is_public=form.cleaned_data["is_public"],
-                    # Todo: Add these to the the template
                     set_rest_time=form.cleaned_data["set_rest_time"],
                     exercise_rest_time=form.cleaned_data["exercise_rest_time"],
-                    # end todo
                 )
                 routine.save()
 
@@ -69,6 +65,9 @@ def create_routine(request, routine_id: Optional[str] = None):
                     )
                     db_equipment.save()
                 messages.success(request, "Routine created successfully!")
+                return redirect(
+                    reverse("update_routine", kwargs={"routine_id": routine.uuid})
+                )
             except Exception as error:
                 logging.error(error)
                 messages.error(request, "An error occurred while creating the routine.")
