@@ -96,9 +96,15 @@ select,
 textarea {
     border: none;
     border-radius: 5px;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     margin: 10px 10px;
     width: 100%;
+}
+
+input[type=checkbox]{
+    height: 20px;
+    width: 20px;
+    margin-left: 12px;
 }
 
 th{
@@ -109,11 +115,15 @@ th, td{
     padding-left: 15px;
 }
 
+table thead tr{
+    background-color: var(--tertiary) !important;
+}
+
 table tr:nth-child(even) {
-    background-color: var(--secondary);
+    background-color: var(--tertiary);
 }
 table tr:nth-child(odd) {
-    background-color: var(--tertiary);
+    background-color: var(--secondary);
 }
 
 /* Classes */
@@ -168,6 +178,12 @@ table tr:nth-child(odd) {
     background-color: var(--secondary);
     border-radius: 5px;
     padding: 0 10px 25px;
+}
+
+.checkbox-input-group label{
+    padding-left: 15px;
+    /*width: 100%;*/
+    /*display: block;*/
 }
 
 .form-container{
@@ -359,6 +375,11 @@ li.error{
     color: black !important;
 }
 
+
+.vertically-center{
+    display: flex;
+    align-items: center;
+}
 
 .w50{
     margin: 0 5px;

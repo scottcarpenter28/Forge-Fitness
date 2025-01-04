@@ -15,9 +15,9 @@ class Exercise {
         return `
             <tr id="tr_${this.id}">
                 <td>${this.exercise}</td>
-                <td class="strength-routine-col">${this.reps || ''}</td>
-                <td class="strength-routine-col">${this.sets || ''}</td>
-                <td class="cardio-routine-col">${this.duration || ''}</td>
+                <td class="for-strength-routine">${this.reps || ''}</td>
+                <td class="for-strength-routine">${this.sets || ''}</td>
+                <td class="for-cardio-routine">${this.duration || ''}</td>
                 <td>
                     <div class="routine-actions">
                         <div class="move-exercise-up">
@@ -40,9 +40,9 @@ class Exercise {
             <div id="mb_${this.id}" class="mobile-table-card">
                 <span style="display: none">${this.id}</span>
                 <span>Exercise: ${this.exercise}</span>
-                <span class="strength-routine-col">Reps: ${this.reps || ''}</span>
-                <span class="strength-routine-col">Sets: ${this.sets || ''}</span>
-                <span class="cardio-routine-col">Time: ${this.duration || ''}</span>
+                <span class="for-strength-routine">Reps: ${this.reps || ''}</span>
+                <span class="for-strength-routine">Sets: ${this.sets || ''}</span>
+                <span class="for-cardio-routine">Time: ${this.duration || ''}</span>
                 <div class="routine-actions">
                     <div class="move-exercise-up">
                         <i class="fa-solid fa-angle-up"></i>
@@ -67,9 +67,9 @@ $(document).ready(function() {
     const routine_select_box = $("#id_routine_type");
 
     const cardio_routine_div = $("#cardio-routine-creator");
-    const cardio_col_selector = ".cardio-routine-col";
+    const cardio_col_selector = ".for-cardio-routine";
 
-    const strength_col_selector = ".strength-routine-col";
+    const strength_col_selector = ".for-strength-routine";
     const strength_routine_div = $("#strength-routine-creator");
 
     /*
