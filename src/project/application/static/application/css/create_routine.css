@@ -1,0 +1,63 @@
+.create-routine-form-container{
+    @media screen and (min-width: var(--md-screen-width)){
+        width: 70%;
+    }
+    @media screen and (max-width: var(--md-screen-width)){
+        width: 90%;
+    }
+}
+
+.move-exercise-up, .remove-exercise, .move-exercise-down{
+    border-radius: 5px;
+    background-color: var(--secondary-option);
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 5px 0;
+    margin: 5px;
+    width: 30%;
+}
+
+.remove-exercise:hover .fa-trash{
+    color: var(--danger-option-hover);
+}
+.move-exercise-up:hover .fa-angle-up, .move-exercise-down:hover .fa-angle-down{
+    color: var(--secondary-option-hover);
+}
+.move-exercise-up:active, .remove-exercise:active, .move-exercise-down:active{
+    background-color: var(--secondary-option-hover);
+}
+
+
+.routine-actions{
+    display: flex;
+    justify-content: center;
+}
+
+#routine-table{
+    @media screen and (max-width: 960px){
+        display: none;
+    }
+    width: 100%;
+}
+
+#mobile-table{
+    @media screen and (min-width: 960px){
+        display: none;
+    }
+    width: 100%;
+}
+
+.mobile-table-card{
+    border-radius: 5px;
+    background-color: var(--tertiary);
+    display: flex;
+    flex-direction: column;
+    margin: 5px 15px;
+    padding: 0 15px 5px;
+}
+
+.mobile-table-card span{
+    width: 100%;
+    margin: 5px 0;
+}

@@ -1,0 +1,165 @@
+{% extends "application/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<script src="{% static 'application/js/create_routine.js' %}"></script>
+<link href="{% static 'application/css/create_routine.css' %}" rel="stylesheet" />
+
+<div class="center-content">
+    <div class="create-routine-form-container">
+        <div class="row">
+            <div class="col-50 col-md-100 form-container">
+                <form action="." method="post">
+                    {% csrf_token %}
+                    <h3>Routine Info</h3>
+                    <div class="input-group">
+                        <label for="routine-name">Routine Name</label>
+                        <input type="text" id="routine-name" name="routine_name" placeholder="" required value="{{ form.routine_name.value|default:'' }}">
+                    </div>
+                    <div class="row">
+                        <div class="col-50 col-md-100 vertically-center">
+                            <div class="checkbox-input-group">
+                                <label for="id_is_public">Make routine public: </label>
+                                {{ form.is_public }}
+                            </div>
+                        </div>
+                        <div class="col-50 col-md-100">
+                            <div class="input-group">
+                                <label for="id_routine_type">Routine Type</label>
+                                {{ form.routine_type }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row for-strength-routine">
+                        <div class="col-50 col-md-100">
+                            <div class="input-group">
+                                <label for="id_set_rest">Rest Between Sets (seconds)</label>
+                                {{ form.set_rest_time }}
+                            </div>
+                        </div>
+                        <div class="col-50 col-md-100">
+                            <div class="input-group">
+                                <label for="id_exercise_rest">Rest Between Exercise (seconds)</label>
+                                {{ form.exercise_rest_time }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="id_description">Description</label>
+                        {{ form.description }}
+                    </div>
+                    <div class="row">
+                        <div class="col-50 col-md-100">
+                            <div class="input-group">
+                                <label for="estimated-time">Estimated Time (minutes)</label>
+                                <input type="number" id="estimated-time" name="estimated_duration" value="{{ form.estimated_duration.value|default:'30' }}">
+                            </div>
+                        </div>
+                        <div class="col-50 col-md-100">
+                            <div class="input-group">
+                                <label for="id_impact">Impact</label>
+                                {{ form.impact }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="id_tags">Tags</label>
+                        {{ form.tags }}
+                    </div>
+                    <div class="select-group">
+                        <label for="target-muscles">Target Muscles</label>
+                        {{ form.target_muscles }}
+                    </div>
+                    <div class="select-group">
+                        <label for="id_equipment">Equipment</label>
+                        {{ form.equipment }}
+                    </div>
+                    <input id="exercise-routine" type="hidden" name="routine" value="{{ form.routine.value|default:'' }}">
+                    <div class="input-group">
+                        {% if form.routine_name.value %}
+                        <input type="submit" value="Update Routine">
+                        {% else %}
+                        <input type="submit" value="Create Routine">
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+            <div class="col-50 col-md-100 form-container">
+                <h3>Create Routine</h3>
+                <div id="cardio-routine-creator">
+                    <h5>Cardio</h5>
+                    <div class="row">
+                        <div class="col-50 col-md-100">
+                            <div class="input-group">
+                                <label for="cardio-exercise">Exercise</label>
+                                <input type="text" name="cardio_exercise" id="cardio-exercise">
+                            </div>
+                        </div>
+                        <div class="col-50 col-md-100">
+                            <div class="input-group">
+                                <label for="cardio-duration">Time</label>
+                                <input type="number" name="cardio_duration" id="cardio-duration" value="30" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <button id="add-cardio-exercise" class="btn btn-primary">Add</button>
+                    </div>
+                </div>
+                <div id="strength-routine-creator" style="display: none">
+                    <h5>Strength</h5>
+                    <div class="input-group">
+                        <label for="strength-exercise">Exercise</label>
+                        <input type="text" name="strength_exercise" id="strength-exercise">
+                    </div>
+                    <div class="row">
+                        <div class="col-50 col-md-100">
+                            <div class="input-group">
+                                <label for="num-reps">Reps</label>
+                                <input type="number" name="reps" id="num-reps" value="10" min="0">
+                            </div>
+                        </div>
+                        <div class="col-50 col-md-100">
+                            <div class="input-group">
+                                <label for="num-sets">Sets</label>
+                                <input type="number" name="sets" id="num-sets" value="3" min="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <button id="add-strength-exercise" class="btn btn-primary">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-100 col-md-100 form-container">
+                    <h3>Routine</h3>
+                    <table id="routine-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Exercise</th>
+                                <th scope="col" class="for-strength-routine">Reps</th>
+                                <th scope="col" class="for-strength-routine">Sets</th>
+                                <th scope="col" class="for-cardio-routine">Time(seconds)</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+
+                    <div id="mobile-table">
+                    </div>
+                </div>
+            </div>
+        {% block routine_extra %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}

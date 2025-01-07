@@ -25,6 +25,7 @@ $(document).ready(function () {
         current_icon.hide();
         next_icon.fadeIn();
         theme_select_box.val(next_theme);
+        document.cookie = `theme_preference=${next_theme};path=/;`;
     }
 
     /*
@@ -46,5 +47,16 @@ $(document).ready(function () {
     light_mode_icon.click(updateTheme);
     dark_mode_icon.click(updateTheme);
     system_mode_icon.click(updateTheme);
+
+    const cookies = decodeURIComponent(document.cookie).split(";");
+    for(let cookie of cookies){
+        cookie = cookie.toLowerCase().trim();
+        if(cookie === `theme_preference=${THEMES.DARK}`)
+            system_mode_icon.click();
+        if(cookie === `theme_preference=${THEMES.LIGHT}`) {
+            system_mode_icon.click();
+            dark_mode_icon.click();
+        }
+    }
 
 });
