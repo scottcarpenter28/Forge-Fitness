@@ -32,6 +32,7 @@ classifiers = [
 [project.optional-dependencies]
 development = [
     "black",
+    "coverage",
     "mypy",
 ]
 

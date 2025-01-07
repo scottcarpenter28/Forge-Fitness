@@ -2,10 +2,12 @@
 
 {% block routine_extra %}
 <div class="row">
-    <div class="col-100">
-        <form action="{% url 'delete_routine' routine_id %}" method="post">
+    <div class="col-100 form-container">
+        <form action="{% url 'delete_routine' routine.uuid %}" method="post">
             {% csrf_token %}
-            <input type="submit" value="Delete" class="btn btn-danger" name="delete_routine">
+            <div class="input-group">
+                <input type="submit" value="Delete" class="btn btn-danger" name="delete_routine">
+            </div>
         </form>
     </div>
 </div>

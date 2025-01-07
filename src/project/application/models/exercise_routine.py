@@ -98,7 +98,7 @@ class ExerciseRoutine(models.Model):
         """
         self.find_routine_tags().delete()
         for tag in routine_tags:
-            RoutineTag.objects.create(routine=self, tag=tag.strip().replace(" ", "_"))
+            RoutineTag.objects.create(routine=self, tag=tag)
 
     @classmethod
     def create_routine(cls, form: RoutineForm, user: User) -> Self:
@@ -123,7 +123,7 @@ class ExerciseRoutine(models.Model):
             routine.__set_routine_exercises(form.cleaned_data["routine"])
             routine.__set_routine_equipment(form.cleaned_data["equipment"])
             routine.__set_routine_target_muscles(form.cleaned_data["target_muscles"])
-            routine.__set_routine_tags(form.cleaned_data["tags"].split(","))
+            routine.__set_routine_tags(form.cleaned_data["tags"])
             return routine
 
     def update_routine(self, form: RoutineForm) -> None:
@@ -141,7 +141,8 @@ class ExerciseRoutine(models.Model):
             self.__set_routine_exercises(form.cleaned_data["routine"])
             self.__set_routine_equipment(form.cleaned_data["equipment"])
             self.__set_routine_target_muscles(form.cleaned_data["target_muscles"])
-            self.__set_routine_tags(form.cleaned_data["tags"].split(","))
+            self.__set_routine_tags(form.cleaned_data["tags"])
+            self.save()
 
     def to_dict(self):
         exercises = [exercise.to_dict() for exercise in self.find_routine_exercises()]

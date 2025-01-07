@@ -48,7 +48,7 @@ class TestAccountCreationView(TestCase):
     def tearDown(self):
         self.client.logout()
 
-    def test_form_success(self):
+    def test_form_create_routine_success(self):
         response = self.client.post(reverse("create_routine"), self.form_data)
         messages = list(get_messages(response.wsgi_request))
         assert str(messages[0]) == "Routine created successfully!"
@@ -64,3 +64,23 @@ class TestAccountCreationView(TestCase):
         assert len(RoutineTag.objects.filter(routine=routine)) == 3
         assert routine_tags[1].tag == "tag"
         assert routine_tags[2].tag == "new_routine"
+
+    def test_form_update_routine_success(self):
+        self.client.post(reverse("create_routine"), self.form_data)
+        current_routine = ExerciseRoutine.objects.first()
+        self.form_data["routine_name"] = "Updated Test Routine"
+        response = self.client.post(
+            reverse("update_routine", args=[current_routine.uuid]), self.form_data
+        )
+        assert response.status_code == 200
+        assert ExerciseRoutine.objects.first().routine_name == "Updated Test Routine"
+
+    def test_form_delete_routine_success(self):
+        self.client.post(reverse("create_routine"), self.form_data)
+        current_routine = ExerciseRoutine.objects.first()
+        self.form_data["routine_name"] = "Updated Test Routine"
+        response = self.client.post(
+            reverse("delete_routine", args=[current_routine.uuid])
+        )
+        assert response.status_code == 302
+        assert len(ExerciseRoutine.objects.all()) == 0

@@ -2,6 +2,8 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.handlers.wsgi import WSGIRequest
+from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls.base import reverse
 
@@ -11,7 +13,12 @@ from application.models.exercise_routine import ExerciseRoutine
 
 
 @login_required
-def create_routine(request):
+def create_routine(request: WSGIRequest) -> HttpResponse:
+    """
+    Creates a new routine in the database.
+    :param request: Information about the request.
+    :return: Either a blank form (GET calls), or creates a new routine in the database (POST calls).
+    """
     form = RoutineForm()
     if request.method == "POST":
         form = RoutineForm(request.POST)

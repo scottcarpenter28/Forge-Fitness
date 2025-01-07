@@ -75,3 +75,8 @@ class RoutineForm(forms.Form):
         required=True,
         error_messages={"required": "Your routine is empty. Build your routine."},
     )
+
+    def clean_tags(self):
+        tags = self.cleaned_data["tags"]
+        if tags:
+            return [tag.strip().replace(" ", "_") for tag in tags.split(",")]
