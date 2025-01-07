@@ -1,12 +1,15 @@
 import json
+from typing import Dict, Any, List, Self
 
 from uuid import uuid4
 
 from django.contrib.auth.models import User
-from django.db import models
+from django.db import models, transaction
+from django.utils import timezone
 
 from application.enums.impact_options import ImpactOptions
 from application.enums.routine_options import RoutineOptions
+from application.forms.routine_form import RoutineForm
 from .muscles import Muscle
 from .equipment import Equipment
 
@@ -38,22 +41,121 @@ class ExerciseRoutine(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def find_routine_exercises(self):
+        return Exercise.objects.filter(routine=self).all()
+
+    def __set_routine_exercises(self, routine_exercises: List[Dict[str, Any]]) -> None:
+        """
+        Deletes and then creates the exercises for the routine.
+        :param routine_exercises: A list of exercises for the routine.
+        :return: None
+        """
+        self.find_routine_exercises().delete()
+        for i, exercise in enumerate(routine_exercises):
+            Exercise.objects.create(
+                routine=self,
+                exercise=exercise.get("exercise"),
+                reps=exercise.get("reps"),
+                sets=exercise.get("sets"),
+                duration=exercise.get("duration"),
+                order=i,
+            )
+
+    def find_routine_equipment(self):
+        return RoutineEquipment.objects.filter(routine=self).all()
+
+    def __set_routine_equipment(self, routine_equipment: List[Equipment]) -> None:
+        """
+        Deletes and then creates the equipment for the routine.
+        :param routine_equipment: A list of required equipments for the routine.
+        :return: None
+        """
+        self.find_routine_equipment().delete()
+        for equipment in routine_equipment:
+            RoutineEquipment.objects.create(routine=self, equipment=equipment)
+
+    def find_routine_target_muscles(self):
+        return RoutineTargetMuscle.objects.filter(routine=self).all()
+
+    def __set_routine_target_muscles(self, target_muscles: List[Muscle]) -> None:
+        """
+        Deletes and then creates the target muscles for the routine.
+        :param target_muscles: A list of target muscles for the routine.
+        :return: None.
+        """
+        self.find_routine_target_muscles().delete()
+        for muscle in target_muscles:
+            RoutineTargetMuscle.objects.create(routine=self, muscle=muscle)
+
+    def find_routine_tags(self):
+        return RoutineTag.objects.filter(routine=self).all()
+
+    def __set_routine_tags(self, routine_tags: List[str]) -> None:
+        """
+        Deletes and then creates the tags for the routine.
+        :param routine_tags:
+        :return:
+        """
+        self.find_routine_tags().delete()
+        for tag in routine_tags:
+            RoutineTag.objects.create(routine=self, tag=tag.strip().replace(" ", "_"))
+
+    @classmethod
+    def create_routine(cls, form: RoutineForm, user: User) -> Self:
+        """
+        Creates a new routine for the given form.
+        :param form: The form containing the routine.
+        :param user: The user who created the routine.
+        :return: The new routine.
+        """
+        with transaction.atomic():
+            routine = ExerciseRoutine.objects.create(
+                creator=user,
+                routine_name=form.cleaned_data["routine_name"],
+                description=form.cleaned_data["description"],
+                estimated_duration=form.cleaned_data["estimated_duration"],
+                impact=form.cleaned_data["impact"],
+                routine_type=form.cleaned_data["routine_type"],
+                is_public=form.cleaned_data["is_public"],
+                set_rest_time=form.cleaned_data["set_rest_time"],
+                exercise_rest_time=form.cleaned_data["exercise_rest_time"],
+            )
+            routine.__set_routine_exercises(form.cleaned_data["routine"])
+            routine.__set_routine_equipment(form.cleaned_data["equipment"])
+            routine.__set_routine_target_muscles(form.cleaned_data["target_muscles"])
+            routine.__set_routine_tags(form.cleaned_data["tags"].split(","))
+            return routine
+
+    def update_routine(self, form: RoutineForm) -> None:
+        """
+        Updates the routine with the new values.
+        :param form: The form containing the updated routine.
+        :return: None.
+        """
+        with transaction.atomic():
+            self.routine_name = form.cleaned_data["routine_name"]
+            self.description = form.cleaned_data["description"]
+            self.estimated_duration = form.cleaned_data["estimated_duration"]
+            self.set_rest_time = form.cleaned_data["set_rest_time"]
+            self.updated_at = timezone.now()
+            self.__set_routine_exercises(form.cleaned_data["routine"])
+            self.__set_routine_equipment(form.cleaned_data["equipment"])
+            self.__set_routine_target_muscles(form.cleaned_data["target_muscles"])
+            self.__set_routine_tags(form.cleaned_data["tags"].split(","))
+
     def to_dict(self):
-        routine_exercises = Exercise.objects.filter(routine=self).all()
-        exercises = [exercise.to_dict() for exercise in routine_exercises]
+        exercises = [exercise.to_dict() for exercise in self.find_routine_exercises()]
 
-        routine_equipment = RoutineEquipment.objects.filter(routine=self).all()
         equipment_ids = [
-            equipment.get_equipment_fk_id() for equipment in routine_equipment
+            equipment.get_equipment_fk_id()
+            for equipment in self.find_routine_equipment()
         ]
 
-        routine_target_muscles = RoutineTargetMuscle.objects.filter(routine=self).all()
         target_muscle_ids = [
-            muscle.get_muscle_fk_id() for muscle in routine_target_muscles
+            muscle.get_muscle_fk_id() for muscle in self.find_routine_target_muscles()
         ]
 
-        routine_tags = RoutineTag.objects.filter(routine=self).all()
-        tags = ", ".join(tag.tag for tag in routine_tags)
+        tags = ", ".join(tag.tag for tag in self.find_routine_tags())
 
         return {
             "routine_name": self.routine_name,

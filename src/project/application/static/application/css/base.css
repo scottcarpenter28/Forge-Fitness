@@ -139,10 +139,10 @@ table tr:nth-child(odd) {
 }
 
 .btn-danger{
-    background-color: var(--danger-option);
+    background-color: var(--danger-option) !important;
 }
 .btn-danger:hover{
-    background-color: var(--danger-option-hover);
+    background-color: var(--danger-option-hover) !important;
 }
 
 .btn-primary{

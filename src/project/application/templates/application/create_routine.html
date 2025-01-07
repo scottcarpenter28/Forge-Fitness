@@ -145,7 +145,7 @@
                                 <th scope="col">Exercise</th>
                                 <th scope="col" class="for-strength-routine">Reps</th>
                                 <th scope="col" class="for-strength-routine">Sets</th>
-                                <th scope="col" class="for-cardio-routine">Time</th>
+                                <th scope="col" class="for-cardio-routine">Time(seconds)</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -158,6 +158,8 @@
                     </div>
                 </div>
             </div>
+        {% block routine_extra %}
+        {% endblock %}
     </div>
 </div>
 {% endblock %}
