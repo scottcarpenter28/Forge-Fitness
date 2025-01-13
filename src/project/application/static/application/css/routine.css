@@ -5,12 +5,27 @@
 .routine-card-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .routine-card{
-    width: 30%;
-    min-width: 30%;
     min-height: 300px;
+
+    @media screen and (min-width: 1080px){
+        width: 30%;
+        min-width: 30%;
+    }
+
+    @media screen and (max-width: 1080px){
+        width: 43%;
+        min-width: 43%;
+    }
+
+    @media screen and (max-width: 800px){
+        width: 90%;
+        min-width: 90%;
+    }
+
 }
 
 .routine-card h5{
@@ -20,6 +35,13 @@
 
 .routine-card p, .routine-card span {
     font-size: 1.1rem;
+}
+
+.routine-card:hover {
+    background-color: var(--tertiary);
+    box-shadow: var(--base) 1px 1px 1px;
+    transform: scale(1.1);
+    z-index: 10;
 }
 
 .routine-edit-button{
@@ -37,6 +59,24 @@
 
 .routine-estimated-time {
     margin-top: 10px;
+}
+
+.routine-start-container{
+    display: flex;
+    justify-content: center;
+}
+
+.routine-start-btn{
+    margin-top: 10px;
+    width: 90%;
+}
+
+.routine-start-btn button {
+    margin: 0 !important;
+}
+
+.routine-start-btn button:hover{
+    cursor: pointer;
 }
 
 .routine-title{

@@ -15,4 +15,5 @@ urlpatterns = [
         "delete-routine/<str:routine_id>/", views.delete_routine, name="delete_routine"
     ),
     path("my-routines", views.my_routines, name="my_routines"),
+    path("run-routine/<str:routine_id>/", views.run_routine, name="run_routine"),
 ]

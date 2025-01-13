@@ -13,44 +13,7 @@
 
         <div class="row">
             <div class="col-100 routine-card-container">
-                <div class="routine-card form-container">
-                    <div class="routine-header">
-                        <div class="routine-title">
-                            <h5>Routine Name that is very long</h5>
-                        </div>
-                        <div class="routine-estimated-time">
-                            <i class="fa-regular fa-clock"></i>
-                            &nbsp;
-                            <span>30</span>
-                        </div>
-                    </div>
-                    <span>Created by: Me</span>
-                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Auctor dictum vehicula auctor justo at, ultrices sagittis torquent. Dignissim donec penatibus fermentum etiam morbi inceptos potenti cras. Diam maximus natoque lectus, arcu donec euismod.</p>
-                    <span>#legs #Butt #Calves</span>
-                </div>
-                {% for routine in routines %}
-                <div class="routine-card form-container">
-                    <div class="routine-header">
-                        <div class="routine-title">
-                            <h5>{{ routine.routine_name }}</h5>
-                        </div>
-                        <div class="routine-estimated-time">
-                            <i class="fa-regular fa-clock"></i>
-                            <span>{{ routine.estimated_duration }} min</span>
-                        </div>
-                    </div>
-                    <span>
-                        Created by: {{ routine.creator.username }}
-                        {% if routine.creator.username == request.user.username %}
-                            <a href="{% url 'update_routine' routine_id=routine.uuid %}" class="routine-edit-button">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        {% endif %}
-                    </span>
-                    <p>{{ routine.description }}</p>
-                    <span>#legs #Butt #Calves</span>
-                </div>
-                {% endfor %}
+                {% include "application/routine_cards.html" %}
             </div>
         </div>
     </div>
