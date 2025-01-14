@@ -1,0 +1,43 @@
+{% for routine in routines %}
+<div class="routine-card form-container">
+    <div class="routine-header">
+        <div class="routine-title">
+            <h5>{{ routine.routine_name }}</h5>
+        </div>
+        <div class="routine-estimated-time">
+            <i class="fa-regular fa-clock"></i>
+            <span>{{ routine.estimated_duration }} min</span>
+        </div>
+    </div>
+    <span>
+        Created by: {{ routine.creator.username }}
+        {% if routine.creator.username == request.user.username %}
+        <a href="{% url 'update_routine' routine_id=routine.uuid %}" class="routine-edit-button">
+            <i class="fa-solid fa-pen-to-square"></i>
+        </a>
+        {% endif %}
+    </span>
+    <p>{{ routine.description }}</p>
+    <div>
+        <span>Type: {{ routine.routine_type }}</span>
+    </div>
+    <div>
+        <span>#legs #Butt #Calves</span>
+    </div>
+    <div>
+        <span>Completions: </span>
+    </div>
+    <div class="routine-start-container">
+        <a href="{% url 'run_routine' routine_id=routine.uuid %}" class="routine-start-btn">
+            <button class="btn btn-primary">
+                Start
+                {% if routine.routine_type == 'Cardio' %}
+                <i class="fa-solid fa-person-running"></i>
+                {% else %}
+                <i class="fa-solid fa-dumbbell"></i>
+                {% endif %}
+            </button>
+        </a>
+    </div>
+</div>
+{% endfor %}

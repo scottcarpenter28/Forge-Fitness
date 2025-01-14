@@ -151,12 +151,18 @@ table tr:nth-child(odd) {
 .btn-primary:hover{
     background-color: var(--primary-option-hover);
 }
+.btn-primary:active{
+    background-color: var(--primary-option-hover);
+}
 
 .btn-secondary{
     background-color: var(--secondary-option);
 }
 
 .btn-secondary:hover{
+    background-color: var(--secondary-option-hover);
+}
+.btn-secondary:active{
     background-color: var(--secondary-option-hover);
 }
 
