@@ -40,7 +40,7 @@
 .routine-card:hover {
     background-color: var(--tertiary);
     box-shadow: var(--base) 1px 1px 1px;
-    transform: scale(1.1);
+    transform: scale(1.02);
     z-index: 10;
 }
 
@@ -81,4 +81,57 @@
 
 .routine-title{
     width: 75%;
+}
+
+#timer {
+    align-items: center;
+    border-radius: 50%;
+    background-color: var(--danger-option);
+    color: white;
+    display: flex;
+    justify-content: center;
+    height: 300px;
+    width: 300px;
+}
+
+#timer.rest {
+    background-color: var(--danger-option);
+}
+#timer.active {
+    background-color: var(--success-option);
+}
+
+#current-exercise {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#routine-tracker{
+    max-width: 925px;
+}
+
+#routine-progress{
+    width: 100%;
+}
+
+.progress-bar {
+    background-color: var(--base);
+    border: 2px solid black;
+    border-radius: 10px;
+    height: 30px;
+}
+
+.progress-bar-fill {
+    border-radius: 10px;
+    background-color: var(--primary-option-hover);
+    height: 100%;
+    text-align: right;
+    width: 10%;
+    max-width: 100%;
+    min-width: 0%;
+}
+
+.progress-bar-text {
+    margin-right: 10px;
 }
