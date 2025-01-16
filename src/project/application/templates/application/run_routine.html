@@ -1,0 +1,57 @@
+{% extends "application/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<link href="{% static 'application/css/routine.css' %}" rel="stylesheet" />
+<div class="">
+    <div class="row">
+        <div class="col-100 center-content">
+            <div id="timer" class="rest">
+                <div id="current-exercise">
+                    <span id="current-time">00:00</span>
+                    <span id="exercise">Rest</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row center-content">
+        <div id="routine-tracker" class="col-50 routine-col-max">
+            <div class="row">
+                <div class="progress-bar col-100" style="">
+                    <div class="progress-bar-fill">
+                        <span class="progress-bar-text">10%</span>
+                    </div>
+                </div>
+            </div>
+            <div id="strength-routine" style="{% if routine.routine_type == 'Cardio' %}display:none;{% endif %}">
+                <div class="routine-info-group">
+                    <p class="routine-label">Exercise:</p><p>Example</p>
+                </div>
+                <div class="routine-info-group">
+                    <p class="routine-label">Reps:</p><p>10</p>
+                </div>
+                <div class="routine-info-group">
+                    <p class="routine-label">Sets:</p><p>3</p>
+                </div>
+            </div>
+            <div id="cardio-routine" style="{% if routine.routine_type != 'Cardio' %}display:none;{% endif %} text-align: center">
+                <h4>Up Next:</h4>
+                <h4>Example</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row center-content">
+        <div class="col-50 routine-col-max">
+            <div class="row" style="{% if routine.routine_type == 'Cardio' %}display:none;{% endif %}">
+                    <button class="btn btn-primary">Next</button>
+                    <button class="btn btn-danger">Quit</button>
+            </div>
+            <div class="row" style="{% if routine.routine_type != 'Cardio' %}display:none;{% endif %}">
+                <button class="btn btn-primary">+ 20 Seconds Rest</button>
+                <button class="btn btn-danger">Quit</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -17,4 +17,4 @@ def run_routine(request, routine_id: str):
     if not found_routine:
         messages.error(request, "Routine not found")
         return redirect("/")
-    return render(request, "application/run_routine.html")
+    return render(request, "application/run_routine.html", {"routine": found_routine})

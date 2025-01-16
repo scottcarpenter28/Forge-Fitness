@@ -107,7 +107,7 @@
     align-items: center;
 }
 
-#routine-tracker{
+.routine-col-max {
     max-width: 925px;
 }
 
@@ -123,15 +123,28 @@
 }
 
 .progress-bar-fill {
-    border-radius: 10px;
+    border-radius: 8px;
     background-color: var(--primary-option-hover);
     height: 100%;
     text-align: right;
     width: 10%;
     max-width: 100%;
-    min-width: 0%;
 }
 
 .progress-bar-text {
     margin-right: 10px;
+}
+
+.routine-info-group {
+    display: flex;
+    margin: 20px 0;
+    width: 100%;
+}
+
+.routine-label{
+    width: 150px;
+}
+
+.routine-info-group p {
+    margin: 0;
 }
