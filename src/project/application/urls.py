@@ -1,6 +1,7 @@
-from django.urls import path
+from django.urls import include, path
 
-from . import views
+from . import api, views
+
 
 urlpatterns = [
     path("", views.index, name="index"),
@@ -16,4 +17,6 @@ urlpatterns = [
     ),
     path("my-routines", views.my_routines, name="my_routines"),
     path("run-routine/<str:routine_id>/", views.run_routine, name="run_routine"),
+    # path("api/routine", api.RoutineAPIView.as_view(), name="api_routine"),
+    path("api/", include(api.api_urls)),
 ]

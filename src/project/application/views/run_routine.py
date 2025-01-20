@@ -15,6 +15,11 @@ def run_routine(request, routine_id: str):
         uuid=routine_id, creator=request.user
     ).first()
     if not found_routine:
-        messages.error(request, "Routine not found")
+        messages.error(request, "Routine not found.")
         return redirect("/")
+
+    if not found_routine.is_public:
+        if not found_routine.creator == request.user:
+            messages.error(request, "You do not have access to this routine.")
+            return redirect("/")
     return render(request, "application/run_routine.html", {"routine": found_routine})
