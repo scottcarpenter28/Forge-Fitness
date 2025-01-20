@@ -4,6 +4,8 @@
 {% block content %}
 
 <link href="{% static 'application/css/routine.css' %}" rel="stylesheet" />
+<script src="{% static 'application/js/progress_bar.js' %}" type="module"></script>
+<script src="{% static 'application/js/routine.js' %}" type="module"></script>
 <div class="">
     <div class="row">
         <div class="col-100 center-content">
@@ -18,11 +20,7 @@
     <div class="row center-content">
         <div id="routine-tracker" class="col-50 routine-col-max">
             <div class="row">
-                <div class="progress-bar col-100" style="">
-                    <div class="progress-bar-fill">
-                        <span class="progress-bar-text">10%</span>
-                    </div>
-                </div>
+                {% include 'application/components/progress-bar.html' with div_id='routine-progress' width=0 %}
             </div>
             <div id="strength-routine" style="{% if routine.routine_type == 'Cardio' %}display:none;{% endif %}">
                 <div class="routine-info-group">
