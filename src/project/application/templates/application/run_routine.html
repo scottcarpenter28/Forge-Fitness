@@ -11,8 +11,8 @@
         <div class="col-100 center-content">
             <div id="timer" class="rest">
                 <div id="current-exercise">
-                    <span id="current-time">00:00</span>
-                    <span id="exercise">Rest</span>
+                    <span id="current-time"></span>
+                    <span id="exercise"></span>
                 </div>
             </div>
         </div>
@@ -21,6 +21,9 @@
         <div id="routine-tracker" class="col-50 routine-col-max">
             <div class="row">
                 {% include 'application/components/progress-bar.html' with div_id='routine-progress' width=0 %}
+            </div>
+            <div id="start_exercise" class="row">
+                <button class="btn btn-success">Start!</button>
             </div>
             <div id="strength-routine" style="{% if routine.routine_type == 'Cardio' %}display:none;{% endif %}">
                 <div class="routine-info-group">

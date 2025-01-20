@@ -166,6 +166,14 @@ table tr:nth-child(odd) {
     background-color: var(--secondary-option-hover);
 }
 
+.btn-success{
+    background-color: var(--success-option);
+}
+
+.btn-success:hover{
+    background-color: var(--success-option-hover);
+}
+
 .center-content{
     display: flex;
     justify-content: center;
