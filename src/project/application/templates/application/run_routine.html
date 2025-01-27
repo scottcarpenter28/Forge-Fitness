@@ -10,6 +10,8 @@
 <script>
     window.routine_uuid = "{{ routine.uuid }}";
     window.routine_type = "{{ routine.routine_type }}";
+    window.set_rest_time = "{{ routine.set_rest_time }}";
+    window.exercise_rest_time = "{{ routine.exercise_rest_time }}";
 </script>
 
 <div class="">
@@ -37,10 +39,10 @@
                         <p class="routine-label">Exercise:</p><p id="strength-exercise-name">Example</p>
                     </div>
                     <div class="routine-info-group">
-                        <p class="routine-label">Reps:</p><p id="strength-exercise-reps">10</p>
+                        <p class="routine-label">Reps:</p><p id="strength-exercise-reps"></p>
                     </div>
                     <div class="routine-info-group">
-                        <p class="routine-label">Sets:</p><p id="strength-exercise-sets">3</p>
+                        <p class="routine-label">Sets:</p><p id="strength-exercise-sets"></p>
                     </div>
                 </div>
                 <div id="cardio-routine" style="{% if routine.routine_type != 'Cardio' %}display:none;{% endif %} text-align: center">
@@ -53,8 +55,8 @@
     <div id="exercise-controls" class="row center-content" style="display: none;">
         <div class="col-50 routine-col-max">
             <div class="row" style="{% if routine.routine_type == 'Cardio' %}display:none;{% endif %}">
-                    <button id="next-strength" class="btn btn-primary">Next</button>
-                    <button class="btn btn-danger">Quit</button>
+                    <button id="set-increment-btn" class="btn btn-primary w50" onclick="update_sets_completed()">Next Set</button>
+                    <button class="btn btn-danger w50">Quit</button>
             </div>
             <div class="row" style="{% if routine.routine_type != 'Cardio' %}display:none;{% endif %}">
                 <button class="btn btn-primary">+ 20 Seconds Rest</button>

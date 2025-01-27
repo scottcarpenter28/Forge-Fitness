@@ -155,6 +155,11 @@ table tr:nth-child(odd) {
     background-color: var(--primary-option-hover);
 }
 
+.btn-primary:disabled,
+.btn-secondary:disabled {
+    background-color: var(--tertiary) !important;
+}
+
 .btn-secondary{
     background-color: var(--secondary-option);
 }
@@ -410,6 +415,10 @@ li.error{
 .vertically-center{
     display: flex;
     align-items: center;
+}
+
+.w25 {
+    width: 25%;
 }
 
 .w50{

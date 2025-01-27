@@ -9,6 +9,9 @@ class Timer{
    current_exercise_span = null;
    exercise_text = ""
    time_interval = null;
+   __current_timer = null;
+   __is_paused = false;
+   __count_direction = null;
 
    constructor(timer_container_id, current_time_span_id, current_exercise_span_id){
       this.set_timer_container(timer_container_id);
@@ -81,8 +84,8 @@ class Timer{
 
    async start_count_down(time) {
       this.set_time(time);
-
-      return new Promise((resolve) => {
+      this.__count_direction = "DOWN"
+      this.__current_timer = new Promise((resolve) => {
          const tick = () => {
             if (this.current_time <= 0) {
                clearInterval(this.time_interval);
@@ -95,22 +98,55 @@ class Timer{
          tick();
          this.time_interval = setInterval(tick, 1000);
       });
+      return this.__current_timer
    }
 
-
-
    start_count_up(){
-      this.set_time(0);
-      return new Promise((resolve) => {
+      this.set_time(this.current_time);
+      this.__count_direction = "UP"
+      this.__current_timer = new Promise((resolve) => {
          const tick = () => {
             this.set_time_text();
             this.current_time++;
          };
-
+         if(this.__is_paused){
+            clearInterval(this.time_interval);
+            resolve();
+         }
          tick();
          this.time_interval = setInterval(tick, 1000);
       });
+      return this.__current_timer
+   }
 
+   __pause(){
+      if(this.time_interval)
+         clearInterval(this.time_interval);
+      this.__is_paused = true;
+      return this.current_time;
+   }
+
+   __unpause(time_remaining){
+      this.__is_paused = false;
+      if(this.__count_direction === "DOWN")
+         return this.start_count_down(time_remaining);
+      else
+         return this.start_count_up(time_remaining);
+   }
+
+   async pause_for_rest(rest_time) {
+      let current_time = this.__pause();
+      let count_direction = this.__count_direction;
+      let current_exercise = this.exercise_text;
+
+      this.set_current_exercise("Rest");
+      await this.start_count_down(rest_time);
+
+
+      this.set_current_exercise(current_exercise);
+      this.__count_direction = count_direction;
+      this.current_time = current_time;
+      // return this.__unpause(current_time);
    }
 
 }
@@ -196,10 +232,34 @@ function next_strength(){
    }
 }
 
+let completed_sets = -1;
+window.update_sets_completed = async function (){
+   completed_sets += 1;
+   $("#strength-exercise-sets").text(`${completed_sets}/${current_exercise.sets}`);
+   if(completed_sets < current_exercise.sets) {
+      $("#set-increment-btn").prop( "disabled", true );
+
+      if(completed_sets > 0) {
+         await timer.pause_for_rest(window.set_rest_time);
+         timer.start_count_up();
+      }
+      $("#set-increment-btn").prop( "disabled", false );
+   }
+   else {
+      $("#set-increment-btn").prop( "disabled", true );
+      await timer.pause_for_rest(window.exercise_rest_time);
+      timer.start_count_up();
+      next_strength();
+   }
+
+}
+
+
 function update_strength_texts(){
+   completed_sets = -1;
    $("#strength-exercise-name").text(current_exercise.name);
    $("#strength-exercise-reps").text(current_exercise.reps);
-   $("#strength-exercise-sets").text(current_exercise.sets);
+   update_sets_completed();
 }
 
 async function run_cardio_routine(){
@@ -232,6 +292,5 @@ $(document).ready(function() {
    const routine_request = get_routine();
 
    $("#start-exercise-btn").click(() => start(routine_request));
-   $("#next-strength").click(next_strength)
 
 });

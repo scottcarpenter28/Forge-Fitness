@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.handlers.wsgi import WSGIRequest
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
+from django.urls.base import reverse
 
 from application.forms.routine_form import RoutineForm
 from application.utils.form_messages import add_error_messages
@@ -76,7 +77,7 @@ def delete_routine(request: WSGIRequest, routine_id: str) -> HttpResponseRedirec
         else:
             found_routine.delete()
             messages.success(request, "Routine deleted.")
-        return redirect("/")
+        return redirect(reverse("my_routines"))
 
     messages.warning(request, "Method not allowed.")
     return redirect("/")

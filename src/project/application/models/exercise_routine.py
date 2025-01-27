@@ -137,6 +137,9 @@ class ExerciseRoutine(models.Model):
             self.description = form.cleaned_data["description"]
             self.estimated_duration = form.cleaned_data["estimated_duration"]
             self.set_rest_time = form.cleaned_data["set_rest_time"]
+            self.exercise_rest_time = form.cleaned_data["exercise_rest_time"]
+            self.impact = form.cleaned_data["impact"]
+            self.routine_type = form.cleaned_data["routine_type"]
             self.updated_at = timezone.now()
             self.__set_routine_exercises(form.cleaned_data["routine"])
             self.__set_routine_equipment(form.cleaned_data["equipment"])
@@ -165,7 +168,7 @@ class ExerciseRoutine(models.Model):
             "impact": self.impact,
             "tags": tags,
             "target_muscles": target_muscle_ids,
-            "routine_type": "Cardio",
+            "routine_type": self.routine_type,
             "equipment": equipment_ids,
             "is_public": self.is_public,
             "set_rest_time": self.set_rest_time,

@@ -46,7 +46,7 @@ class RoutineForm(forms.Form):
         initial=ImpactOptions.MEDIUM,
         required=True,
         choices=ImpactOptions.choices,
-        error_messages={"required": "Impact  level is required."},
+        error_messages={"required": "Impact level is required."},
     )
     tags = forms.CharField(required=False, help_text="Comma separated tags")
     target_muscles = forms.ModelMultipleChoiceField(
@@ -59,7 +59,10 @@ class RoutineForm(forms.Form):
         },
     )
     routine_type = forms.ChoiceField(
-        initial=RoutineOptions.CARDIO, choices=RoutineOptions.choices
+        initial=RoutineOptions.CARDIO,
+        required=True,
+        choices=RoutineOptions.choices,
+        error_messages={"required": "Routine type is required."},
     )
     equipment = forms.ModelMultipleChoiceField(
         required=False,
