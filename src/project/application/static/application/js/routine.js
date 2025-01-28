@@ -84,22 +84,32 @@ class Timer{
 
    async start_count_down(time) {
       this.set_time(time);
-      this.__count_direction = "DOWN"
+      this.__count_direction = "DOWN";
       this.__current_timer = new Promise((resolve) => {
          const tick = () => {
             if (this.current_time <= 0) {
+               // Play the final beep when countdown reaches 0
+               window.start_beep_audio.currentTime = 0; // Reset to start of audio
+               window.start_beep_audio.play();
                clearInterval(this.time_interval);
                resolve();
+            } else if (this.current_time >= 1 && this.current_time <= 5) {
+               // Ensure short beep plays every second consistently
+               window.short_beep_audio.currentTime = 0; // Reset to start of audio
+               window.short_beep_audio.play();
             }
+
             this.set_time_text();
             this.current_time--;
          };
 
-         tick();
-         this.time_interval = setInterval(tick, 1000);
+         tick(); // Call immediately to handle the first tick
+         this.time_interval = setInterval(tick, 1000); // Call every 1 second
       });
-      return this.__current_timer
+      return this.__current_timer;
    }
+
+
 
    start_count_up(){
       this.set_time(this.current_time);
@@ -146,7 +156,7 @@ class Timer{
       this.set_current_exercise(current_exercise);
       this.__count_direction = count_direction;
       this.current_time = current_time;
-      // return this.__unpause(current_time);
+      return current_time;
    }
 
 }
@@ -209,7 +219,7 @@ async function start(routine_req){
       let start = new Exercise("Starting", 5);
       start.next_exercise = current_exercise;
       current_exercise = start;
-      run_cardio_routine();
+      await run_cardio_routine();
    }
    else{
       update_strength_texts();
@@ -270,12 +280,23 @@ async function run_cardio_routine(){
       else
          $("#next-exercise").text("");
       await timer.start_count_down(current_exercise.duration_seconds);
-      completed_exercise ++;
-      let completed_percent = parseInt((completed_exercise/total_exercise) * 100);
-      progress_bar.set_width(completed_percent);
-      current_exercise = current_exercise.next_exercise;
+      update_cardio_progress();
    }
    routine_complete();
+}
+
+function update_cardio_progress(){
+   completed_exercise ++;
+   let completed_percent = parseInt((completed_exercise/total_exercise) * 100);
+   progress_bar.set_width(completed_percent);
+   current_exercise = current_exercise.next_exercise;
+}
+
+window.add_rest_time = async function(){
+   let time_remaining = await timer.pause_for_rest(20);
+   await timer.start_count_down(time_remaining);
+   update_cardio_progress();
+   await run_cardio_routine();
 }
 
 function routine_complete(){

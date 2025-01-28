@@ -12,6 +12,11 @@
     window.routine_type = "{{ routine.routine_type }}";
     window.set_rest_time = "{{ routine.set_rest_time }}";
     window.exercise_rest_time = "{{ routine.exercise_rest_time }}";
+
+    window.short_beep_audio = new Audio("{% static 'application/sounds/short-beep.mp3' %}")
+    window.start_beep_audio = new Audio("{% static 'application/sounds/start.mp3' %}")
+
+
 </script>
 
 <div class="">
@@ -59,7 +64,7 @@
                     <button class="btn btn-danger w50">Quit</button>
             </div>
             <div class="row" style="{% if routine.routine_type != 'Cardio' %}display:none;{% endif %}">
-                <button class="btn btn-primary">+ 20 Seconds Rest</button>
+                <button class="btn btn-primary" onclick="add_rest_time()">+ 20 Seconds Rest</button>
                 <button class="btn btn-danger">Quit</button>
             </div>
         </div>
