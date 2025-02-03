@@ -1,6 +1,5 @@
 import json
 from typing import Dict, Any, List, Self
-
 from uuid import uuid4
 
 from django.contrib.auth.models import User
@@ -16,7 +15,7 @@ from .equipment import Equipment
 
 class ExerciseRoutine(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid4)
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     routine_name = models.CharField(max_length=255)
     description = models.TextField()
     estimated_duration = models.IntegerField(

@@ -8,3 +8,4 @@ from application.models.exercise_routine import (
     RoutineTargetMuscle,
     RoutineEquipment,
 )
+from application.models.completed_routine import CompletedRoutine
