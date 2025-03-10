@@ -129,10 +129,11 @@ class Timer{
       return this.__current_timer
    }
 
-   __pause(){
+   pause(){
       if(this.time_interval)
          clearInterval(this.time_interval);
       this.__is_paused = true;
+      console.log("Pausing");
       return this.current_time;
    }
 
@@ -145,7 +146,7 @@ class Timer{
    }
 
    async pause_for_rest(rest_time) {
-      let current_time = this.__pause();
+      let current_time = this.pause();
       let count_direction = this.__count_direction;
       let current_exercise = this.exercise_text;
 
@@ -300,7 +301,8 @@ window.add_rest_time = async function(){
 }
 
 function routine_complete(){
-   timer.set_current_exercise("Completed!")
+   timer.set_current_exercise("Completed!");
+   timer.pause();
    $("#exercise-controls").hide();
    $("#exercise-tracker").hide();
    $("#complete-exercise").show();

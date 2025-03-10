@@ -83,3 +83,10 @@ class RoutineForm(forms.Form):
         tags = self.cleaned_data["tags"]
         if tags:
             return [tag.strip().replace(" ", "_") for tag in tags.split(",")]
+
+    def clean_routine(self):
+        if len(self.cleaned_data["routine"]) < 2:
+            raise forms.ValidationError(
+                "You must provide at least 2 exercises in your routine."
+            )
+        return self.cleaned_data["routine"]

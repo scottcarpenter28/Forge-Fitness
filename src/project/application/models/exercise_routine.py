@@ -122,7 +122,8 @@ class ExerciseRoutine(models.Model):
             routine.__set_routine_exercises(form.cleaned_data["routine"])
             routine.__set_routine_equipment(form.cleaned_data["equipment"])
             routine.__set_routine_target_muscles(form.cleaned_data["target_muscles"])
-            routine.__set_routine_tags(form.cleaned_data["tags"])
+            if form.cleaned_data["tags"]:
+                routine.__set_routine_tags(form.cleaned_data["tags"])
             return routine
 
     def update_routine(self, form: RoutineForm) -> None:
@@ -143,7 +144,8 @@ class ExerciseRoutine(models.Model):
             self.__set_routine_exercises(form.cleaned_data["routine"])
             self.__set_routine_equipment(form.cleaned_data["equipment"])
             self.__set_routine_target_muscles(form.cleaned_data["target_muscles"])
-            self.__set_routine_tags(form.cleaned_data["tags"])
+            if form.cleaned_data["tags"]:
+                self.__set_routine_tags(form.cleaned_data["tags"])
             self.save()
 
     def to_dict(self):
