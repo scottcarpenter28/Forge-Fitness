@@ -133,7 +133,6 @@ class Timer{
       if(this.time_interval)
          clearInterval(this.time_interval);
       this.__is_paused = true;
-      console.log("Pausing");
       return this.current_time;
    }
 
@@ -214,6 +213,10 @@ async function start(routine_req){
    $("#exercise-tracker").show();
    $("#start-exercise").hide();
    timer.set_current_exercise(current_exercise.name);
+
+   const start_time = new Date();
+   $("#start-date-time").val(start_time.toISOString());
+   $("#completion-status").val("Incomplete");
 
    if(window.routine_type == "Cardio"){
       completed_exercise = -1
@@ -305,6 +308,10 @@ function routine_complete(){
    timer.pause();
    $("#exercise-controls").hide();
    $("#exercise-tracker").hide();
+
+   const end_time = new Date();
+   $("#end-date-time").val(end_time.toISOString());
+   $("#completion-status").val("Complete");
    $("#complete-exercise").show();
 }
 

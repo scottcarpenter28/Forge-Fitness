@@ -72,7 +72,14 @@
     <div id="complete-exercise" class="row center-content" style="display: none;">
         <div class="col-50 routine-col-max">
             <div class="row">
-                <button class="btn btn-success">Complete workout!</button>
+                <form action="." method="post" style="width: 100%">
+                    {% csrf_token %}
+                    <input type="hidden" name="workout_uid" value="{{ routine.uuid }}">
+                    <input type="hidden" name="workout_start" id="start-date-time">
+                    <input type="hidden" name="workout_end" id="end-date-time">
+                    <input type="hidden" name="completion_status" id="completion-status" value="Not started">
+                    <input type="submit" value="Complete workout!">
+                </form>
             </div>
         </div>
     </div>
